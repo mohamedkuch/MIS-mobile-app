@@ -38,6 +38,39 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ],
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 30, top: 30, bottom: 10),
+              child: Text(
+                "Welcome back !",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 30, bottom: 30),
+              child: Text(
+                "Enter your credentials to continue",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+              child: Divider(
+                height: 3,
+                thickness: 2,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text("ssss"),
+              ),
             )
           ],
         ),
