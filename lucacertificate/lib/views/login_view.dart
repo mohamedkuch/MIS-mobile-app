@@ -9,10 +9,29 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  TextEditingController _textEditingController = TextEditingController();
+  bool _showClearButton = false;
+
+  Widget _getClearButton() {
+    if (!_showClearButton) {
+      return null;
+    }
+    return IconButton(
+      onPressed: () {
+        _textEditingController.clear();
+      },
+      icon: Icon(
+        Icons.clear,
+        color: Colors.red,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: bgColor,
         height: MediaQuery.of(context).size.height * 1,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -69,7 +88,38 @@ class _LoginViewState extends State<LoginView> {
             ),
             Expanded(
               child: Center(
-                child: Text("ssss"),
+                child: Container(
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(33),
+                  ),
+                  child: TextField(
+                    onSubmitted: (text) {},
+                    onChanged: (text) {},
+                    controller: _textEditingController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black87,
+                          width: 1.2,
+                        ),
+                        borderRadius: BorderRadius.circular(33),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black38,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(33),
+                      ),
+                      hintText: 'user-id',
+                      hintStyle: TextStyle(fontSize: 15),
+                      suffixIcon: _getClearButton(),
+                    ),
+                  ),
+                ),
               ),
             )
           ],
