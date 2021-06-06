@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/views/login_view.dart';
+import 'package:lucacertificate/views/welcome_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,8 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
-
-        primarySwatch: Colors.blue,
+        primaryColor: primaryColorBlue,
+        // primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
     );
@@ -33,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return LoginView();
+    return WelcomeView();
+    //return LoginView();
   }
 }

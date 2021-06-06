@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+              padding: EdgeInsets.only(left: 30, right: 30, bottom: 10),
               child: Divider(
                 height: 3,
                 thickness: 2,
@@ -128,17 +128,28 @@ class _LoginViewState extends State<LoginView> {
                   Column(
                     children: [
                       Container(
-                        margin:
-                            EdgeInsets.only(left: 30, right: 30, bottom: 15),
-                        child: primaryButton("Login"),
-                      ),
+                          margin:
+                              EdgeInsets.only(left: 30, right: 30, bottom: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              // on Login pressed
+                              print("Login pressed");
+                            },
+                            child: primaryButton("Login"),
+                          )),
                       Center(
                         child: Text("don't have an account ? "),
                       ),
                       Container(
                         margin: EdgeInsets.only(
                             left: 30, right: 30, top: 15, bottom: 10),
-                        child: primaryButton("Sign up"),
+                        child: GestureDetector(
+                          onTap: () {
+                            // on Sign up pressed
+                            print("Sign up pressed");
+                          },
+                          child: primaryButton("Sign up"),
+                        ),
                       ),
                     ],
                   )
