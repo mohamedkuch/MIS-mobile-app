@@ -18,7 +18,10 @@ Widget primaryButtonHelper(String title) {
     child: Center(
       child: Text(
         title,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     ),
   );
