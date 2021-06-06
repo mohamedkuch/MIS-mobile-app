@@ -8,14 +8,13 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
-Widget primaryButton(String title) {
+Widget primaryButtonHelper(String title) {
   return Container(
     decoration: BoxDecoration(
       color: Colors.black,
       borderRadius: BorderRadius.circular(70),
     ),
     height: 60,
-    width: double.infinity,
     child: Center(
       child: Text(
         title,
@@ -135,7 +134,7 @@ class _LoginViewState extends State<LoginView> {
                               // on Login pressed
                               print("Login pressed");
                             },
-                            child: primaryButton("Login"),
+                            child: primaryButtonHelper("Login"),
                           )),
                       Center(
                         child: Text("don't have an account ? "),
@@ -148,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
                             // on Sign up pressed
                             print("Sign up pressed");
                           },
-                          child: primaryButton("Sign up"),
+                          child: primaryButtonHelper("Sign up"),
                         ),
                       ),
                     ],

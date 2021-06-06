@@ -22,11 +22,7 @@ Widget appBar() {
       Container(
         child: IconButton(
           icon: const Icon(Icons.person),
-          tooltip: 'Show Snackbar',
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')));
-          },
+          onPressed: () {},
         ),
       ),
       Container(
