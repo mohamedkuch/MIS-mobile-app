@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/views/certificates_view.dart';
 import 'package:lucacertificate/views/login_view.dart';
 import 'package:lucacertificate/views/welcome_view.dart';
 
@@ -35,7 +36,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return WelcomeView();
+    return CertifactesView();
+
+    // return WelcomeView();
     //return LoginView();
   }
 }
