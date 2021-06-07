@@ -84,11 +84,34 @@ class _CertifactesViewState extends State<CertifactesView> {
                   height: 80,
                   margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Card(
-                    elevation: 2,
-                    child: Container(
-                      child: Text("Machine A"),
-                    ),
-                  ),
+                      elevation: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Machine $index",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            margin: EdgeInsets.only(left: 30),
+                          ),
+                          Container(
+                            child: Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            ),
+                            margin: EdgeInsets.only(right: 30),
+                          ),
+                        ],
+                      )),
                 );
               },
             ),
