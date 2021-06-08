@@ -57,16 +57,12 @@ class _CertifactesViewState extends State<CertifactesView> {
                 top: MediaQuery.of(context).size.height * 0.05,
                 bottom: MediaQuery.of(context).size.height * 0.05,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      "Certificates",
-                      style: TextStyle(fontSize: 26),
-                    ),
-                  ),
-                ],
+              child: Container(
+                child: Text(
+                  "Certificates",
+                  style: TextStyle(fontSize: 26),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             Divider(
@@ -129,7 +125,7 @@ class _CertifactesViewState extends State<CertifactesView> {
         },
         label: Text('Back'),
         icon: Icon(Icons.arrow_back),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade900,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lucacertificate/globals.dart';
 
-class ScanView extends StatefulWidget {
-  ScanView({Key key}) : super(key: key);
+class AccessDeniedView extends StatefulWidget {
+  AccessDeniedView({Key key}) : super(key: key);
 
   @override
-  _ScanViewState createState() => _ScanViewState();
+  _AccessDeniedViewState createState() => _AccessDeniedViewState();
 }
 
 Widget buttonHelper(String title, bool isPrimary, Icon icn) {
@@ -43,7 +43,7 @@ Widget buttonHelper(String title, bool isPrimary, Icon icn) {
   );
 }
 
-class _ScanViewState extends State<ScanView> {
+class _AccessDeniedViewState extends State<AccessDeniedView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,10 +59,22 @@ class _ScanViewState extends State<ScanView> {
               ),
               child: Container(
                 child: Text(
-                  "Scan the QR Code",
+                  "Access denied !",
                   style: TextStyle(fontSize: 26),
                   textAlign: TextAlign.center,
                 ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                left: 30,
+                right: 30,
+                bottom: MediaQuery.of(context).size.height * 0.05,
+              ),
+              child: Text(
+                "You dont have a certain certificate to use the machine.",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
               ),
             ),
             Divider(
@@ -72,34 +84,40 @@ class _ScanViewState extends State<ScanView> {
               thickness: 2,
             ),
             Container(
-              margin: EdgeInsets.only(top: 20, left: 40, right: 40),
-              child: Image.asset(
-                "assets/qr_code.png",
-                fit: BoxFit.fitWidth,
+              height: 80,
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: Card(
+                elevation: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Machine 1",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      margin: EdgeInsets.only(left: 30),
+                    ),
+                    Container(
+                      child: Container(
+                        child: Icon(
+                          Icons.cancel,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                      ),
+                      margin: EdgeInsets.only(right: 30),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(
-                MediaQuery.of(context).size.height * 0.02,
+                MediaQuery.of(context).size.height * 0.05,
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 60, right: 60),
-              child: GestureDetector(
-                onTap: () {
-                  // on Scan pressed
-                  print("Scan");
-                },
-                child: buttonHelper(
-                  "Scan",
-                  true,
-                  Icon(
-                    Icons.camera_alt_rounded,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),

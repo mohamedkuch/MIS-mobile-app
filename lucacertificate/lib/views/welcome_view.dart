@@ -125,12 +125,13 @@ class _WelcomeViewState extends State<WelcomeView> {
                               print("Scan");
                             },
                             child: buttonHelper(
-                                "Scan",
-                                true,
-                                Icon(
-                                  Icons.qr_code,
-                                  color: Colors.white,
-                                )),
+                              "Scan",
+                              true,
+                              Icon(
+                                Icons.qr_code,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],
