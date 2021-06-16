@@ -10,6 +10,24 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+Widget primaryButtonHelper(String title) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(70),
+    ),
+    height: 60,
+    child: Center(
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
+}
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -21,20 +39,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Expanded(
-            //   child: Container(
-            //     width: MediaQuery.of(context).size.width * 1,
-            //     color: primaryColorBlue,
-            //     child: Text("asdasdasdasdasdasdasdasdasd"),
-            //   ),
-            // ),
-            // Expanded(
-            //   child: Container(
-            //     width: MediaQuery.of(context).size.width * 1,
-            //     color: Colors.black,
-            //     child: Text("asdasdasdasdasdasdasdasdasd"),
-            //   ),
-            // ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -68,7 +72,9 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 20,
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(20)),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
                   Divider(
                     indent: 50,
                     endIndent: 50,
@@ -76,6 +82,23 @@ class _HomePageState extends State<HomePage> {
                     color: Color.fromRGBO(235, 235, 235, 0.2),
                     thickness: 2,
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        left: 40,
+                        right: 40,
+                        top: 15,
+                        bottom: 10,
+                      ),
+                      child: primaryButtonHelper("Get Started"),
+                    ),
+                  )
                 ],
               ),
             )
