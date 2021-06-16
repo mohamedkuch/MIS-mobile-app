@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   LoginView({Key key}) : super(key: key);
@@ -29,6 +30,16 @@ Widget primaryButtonHelper(String title) {
 
 class _LoginViewState extends State<LoginView> {
   TextEditingController _textEditingController = TextEditingController();
+  String _userToken = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      _userToken = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +111,18 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(33),
                     ),
                     child: TextField(
-                      onSubmitted: (text) {},
-                      onChanged: (text) {},
+                      onSubmitted: (text) {
+                        setState(() {
+                          _userToken = text;
+                          print("### userToken : " + text);
+                        });
+                      },
+                      onChanged: (text) {
+                        setState(() {
+                          _userToken = text;
+                          print("### userToken : " + text);
+                        });
+                      },
                       controller: _textEditingController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(20.0),
@@ -119,7 +140,7 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           borderRadius: BorderRadius.circular(33),
                         ),
-                        hintText: 'User-id',
+                        hintText: 'User-Token',
                         hintStyle: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 15,
@@ -133,9 +154,13 @@ class _LoginViewState extends State<LoginView> {
                           margin:
                               EdgeInsets.only(left: 30, right: 30, bottom: 15),
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               // on Login pressed
                               print("Login pressed");
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  "tokenBase64", this._userToken);
                             },
                             child: primaryButtonHelper("Login"),
                           )),
