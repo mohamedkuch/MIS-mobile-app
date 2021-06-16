@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/homePage.dart';
 import 'package:lucacertificate/views/accessDenied_view.dart';
 import 'package:lucacertificate/views/certificates_view.dart';
 import 'package:lucacertificate/views/login_view.dart';
@@ -21,27 +22,14 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColorBlue,
         // primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      routes: {
+        '/': (context) => HomePage(),
+        '/login': (context) => LoginView(),
+        '/welcome': (context) => WelcomeView(),
+        '/scan': (context) => ScanView(),
+        '/Certifactes': (context) => CertifactesView()
+      },
+      initialRoute: '/',
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    //return ScanView();
-    //return AccessDeniedView();
-    //return CertifactesView();
-    //return WelcomeView();
-    return LoginView();
   }
 }
