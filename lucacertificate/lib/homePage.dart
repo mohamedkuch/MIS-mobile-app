@@ -12,15 +12,12 @@ class HomePage extends StatefulWidget {
 
 Widget primaryButtonHelper(String title) {
   return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(70),
-    ),
     height: 60,
     child: Center(
       child: Text(
         title,
         style: TextStyle(
+          color: Colors.black,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -85,20 +82,29 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.all(20),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        left: 40,
-                        right: 40,
-                        top: 15,
-                        bottom: 10,
-                      ),
-                      child: primaryButtonHelper("Get Started"),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 40,
+                      right: 40,
+                      top: 15,
+                      bottom: 10,
                     ),
-                  )
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: Container(
+                        child: primaryButtonHelper("Get Started"),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
