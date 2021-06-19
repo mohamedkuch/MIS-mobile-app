@@ -1,8 +1,8 @@
-import 'package:lucacertificate/models/student.dart';
+import 'package:lucacertificate/models/user.dart';
 
 class AppState {
   bool isLogged;
-  Student loggedUser;
+  User loggedUser;
 
   AppState({this.isLogged, this.loggedUser});
 

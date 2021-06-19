@@ -3,3 +3,5 @@ class UpdateIsLogged {
 
   UpdateIsLogged(this.updatedIsLogged);
 }
+
+class LoginAction {}

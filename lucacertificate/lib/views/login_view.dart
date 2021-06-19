@@ -143,7 +143,7 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           borderRadius: BorderRadius.circular(33),
                         ),
-                        hintText: 'User-Token',
+                        hintText: 'rNumber',
                         hintStyle: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 15,
@@ -159,13 +159,8 @@ class _LoginViewState extends State<LoginView> {
                           child: GestureDetector(
                             onTap: () async {
                               // on Login pressed
-                              print("Login pressed");
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.setString(
-                                  "userTokenBase64", this._userTokenBase64);
                               StoreProvider.of<AppState>(context).dispatch(
-                                UpdateIsLogged(true),
+                                LoginAction(),
                               );
                             },
                             child: primaryButtonHelper("Login"),
