@@ -33,14 +33,14 @@ Widget primaryButtonHelper(String title) {
 
 class _LoginViewState extends State<LoginView> {
   TextEditingController _textEditingController = TextEditingController();
-  String _userTokenBase64 = "";
+  String _rNumber = "";
 
   @override
   void initState() {
     super.initState();
 
     setState(() {
-      _userTokenBase64 = "";
+      _rNumber = "";
     });
   }
 
@@ -116,13 +116,13 @@ class _LoginViewState extends State<LoginView> {
                     child: TextField(
                       onSubmitted: (text) {
                         setState(() {
-                          _userTokenBase64 = text;
-                          print("### userToken : " + text);
+                          _rNumber = text;
+                          print("### rNumber : " + text);
                         });
                       },
                       onChanged: (text) {
                         setState(() {
-                          _userTokenBase64 = text;
+                          _rNumber = text;
                           print("### userToken : " + text);
                         });
                       },
@@ -157,10 +157,11 @@ class _LoginViewState extends State<LoginView> {
                           margin:
                               EdgeInsets.only(left: 30, right: 30, bottom: 15),
                           child: GestureDetector(
-                            onTap: () async {
+                            onTap: () {
                               // on Login pressed
                               StoreProvider.of<AppState>(context).dispatch(
-                                LoginAction(),
+                                // LoginAction("r0013332", "Kechaou"),
+                                LoginAction(_rNumber, "Kechaou"),
                               );
                             },
                             child: primaryButtonHelper("Login"),

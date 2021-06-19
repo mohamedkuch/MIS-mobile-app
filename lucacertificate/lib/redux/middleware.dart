@@ -12,8 +12,9 @@ void lucaMiddleware(
   NextDispatcher next,
 ) async {
   if (action is LoginAction) {
-    print("########2");
-    final res = await Services.login("r0013332", "Kechaou");
+    final res = await Services.login(action.rNumber, action.lastName);
+    print(res);
+
     // check if user logged in successfully
     if (res['error'] != null) {
       print(res);
