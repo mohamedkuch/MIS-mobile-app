@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/redux/actions.dart';
+import 'package:lucacertificate/redux/app_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
@@ -30,14 +33,14 @@ Widget primaryButtonHelper(String title) {
 
 class _LoginViewState extends State<LoginView> {
   TextEditingController _textEditingController = TextEditingController();
-  String _userToken = "";
+  String _userTokenBase64 = "";
 
   @override
   void initState() {
     super.initState();
 
     setState(() {
-      _userToken = "";
+      _userTokenBase64 = "";
     });
   }
 
@@ -113,13 +116,13 @@ class _LoginViewState extends State<LoginView> {
                     child: TextField(
                       onSubmitted: (text) {
                         setState(() {
-                          _userToken = text;
+                          _userTokenBase64 = text;
                           print("### userToken : " + text);
                         });
                       },
                       onChanged: (text) {
                         setState(() {
-                          _userToken = text;
+                          _userTokenBase64 = text;
                           print("### userToken : " + text);
                         });
                       },
@@ -160,7 +163,10 @@ class _LoginViewState extends State<LoginView> {
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.setString(
-                                  "tokenBase64", this._userToken);
+                                  "userTokenBase64", this._userTokenBase64);
+                              StoreProvider.of<AppState>(context).dispatch(
+                                UpdateIsLogged(true),
+                              );
                             },
                             child: primaryButtonHelper("Login"),
                           )),
@@ -179,7 +185,13 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  StoreConnector<AppState, bool>(
+                    converter: (store) => store.state.isLogged,
+                    builder: (context, bool isLogged) {
+                      return Text(isLogged.toString());
+                    },
+                  ),
                 ],
               ),
             )
