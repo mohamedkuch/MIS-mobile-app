@@ -18,7 +18,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final Store<AppState> _store = Store<AppState>(updateUserTokenReducer,
-      initialState: AppState(userTokenBase64: "init"));
+      initialState: AppState(isLogged: false));
 
   @override
   Widget build(BuildContext context) {

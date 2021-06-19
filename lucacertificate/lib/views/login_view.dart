@@ -165,7 +165,8 @@ class _LoginViewState extends State<LoginView> {
                               await prefs.setString(
                                   "userTokenBase64", this._userTokenBase64);
                               StoreProvider.of<AppState>(context).dispatch(
-                                  UpdateUserTokenBase64(this._userTokenBase64));
+                                UpdateIsLogged(true),
+                              );
                             },
                             child: primaryButtonHelper("Login"),
                           )),
@@ -185,10 +186,10 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ],
                   ),
-                  StoreConnector<AppState, String>(
-                    converter: (store) => store.state.userTokenBase64,
-                    builder: (context, String userTokenBase64) {
-                      return Text(userTokenBase64);
+                  StoreConnector<AppState, bool>(
+                    converter: (store) => store.state.isLogged,
+                    builder: (context, bool isLogged) {
+                      return Text(isLogged.toString());
                     },
                   ),
                 ],

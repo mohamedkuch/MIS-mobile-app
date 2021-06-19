@@ -1,5 +1,5 @@
-class UpdateUserTokenBase64 {
-  final String updatedUserTokenBase64;
+class UpdateIsLogged {
+  final bool updatedIsLogged;
 
-  UpdateUserTokenBase64(this.updatedUserTokenBase64);
+  UpdateIsLogged(this.updatedIsLogged);
 }

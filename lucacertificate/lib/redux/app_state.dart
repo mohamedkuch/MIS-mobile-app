@@ -1,10 +1,10 @@
 import 'package:lucacertificate/models/student.dart';
 
 class AppState {
-  String userTokenBase64;
+  bool isLogged;
   Student loggedUser;
 
-  AppState({this.userTokenBase64 = ""});
+  AppState({this.isLogged, this.loggedUser});
 
   // factory AppState.initial(){
   //   return AppState(userTokenBase64: null)
