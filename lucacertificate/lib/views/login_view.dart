@@ -226,20 +226,20 @@ class _LoginViewState extends State<LoginView> {
                                   },
                                   child: primaryButtonHelper("Login"),
                                 )),
-                            Center(
-                              child: Text("don't have an account ? "),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 30, right: 30, top: 15, bottom: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  // on Sign up pressed
-                                  print("Sign up pressed");
-                                },
-                                child: primaryButtonHelper("Sign up"),
-                              ),
-                            ),
+                            // Center(
+                            //   child: Text("don't have an account ? "),
+                            // ),
+                            // Container(
+                            //   margin: EdgeInsets.only(
+                            //       left: 30, right: 30, top: 15, bottom: 10),
+                            //   child: GestureDetector(
+                            //     onTap: () {
+                            //       // on Sign up pressed
+                            //       print("Sign up pressed");
+                            //     },
+                            //     child: primaryButtonHelper("Sign up"),
+                            //   ),
+                            // ),
                           ],
                         ),
                         // Padding(padding: EdgeInsets.all(5)),

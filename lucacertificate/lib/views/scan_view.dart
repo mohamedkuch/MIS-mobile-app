@@ -88,7 +88,7 @@ class _ScanViewState extends State<ScanView> {
               child: GestureDetector(
                 onTap: () {
                   // on Scan pressed
-                  print("Scan");
+                  print("### Scan Pressed");
                 },
                 child: buttonHelper(
                   "Scan",
@@ -106,6 +106,7 @@ class _ScanViewState extends State<ScanView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Add your onPressed code here!
+          Navigator.pop(context);
         },
         label: Text('Back'),
         icon: Icon(Icons.arrow_back),

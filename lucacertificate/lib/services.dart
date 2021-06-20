@@ -8,7 +8,7 @@ class Services {
   static Future login(rNumber, lastName) async {
     try {
       final res = await http.post(
-        Uri.parse('http://localhost:3000/login'),
+        Uri.parse('https://nameless-ocean-84519.herokuapp.com/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -24,13 +24,13 @@ class Services {
       }
       return {'error': res.body};
     } catch (e) {
-      return {'error': "error sending request"};
+      return {'error': "error sending request" + e.toString()};
     }
   }
 
   static Future getCertificates(rNumber, token) async {
     try {
-      var buildUrl = "http://localhost:3000/students/" +
+      var buildUrl = "https://nameless-ocean-84519.herokuapp.com/students/" +
           rNumber +
           "/certificates?token=" +
           token;

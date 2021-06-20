@@ -156,6 +156,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                                   onTap: () {
                                     // on Scan pressed
                                     print("Scan");
+                                    Navigator.pushNamed(context, '/scan');
                                   },
                                   child: buttonHelper(
                                     "Scan",
