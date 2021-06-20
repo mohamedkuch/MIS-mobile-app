@@ -47,7 +47,7 @@ class _ScanViewState extends State<ScanView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar("test"),
       body: Container(
         color: bgColor,
         child: ListView(

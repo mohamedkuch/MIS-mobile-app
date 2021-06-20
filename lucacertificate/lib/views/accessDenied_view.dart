@@ -47,7 +47,7 @@ class _AccessDeniedViewState extends State<AccessDeniedView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: appBar("test"),
       body: Container(
         color: bgColor,
         child: ListView(

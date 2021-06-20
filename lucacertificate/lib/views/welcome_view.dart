@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/redux/app_state.dart';
 
 class WelcomeView extends StatefulWidget {
   WelcomeView({Key key}) : super(key: key);
@@ -46,119 +48,130 @@ Widget buttonHelper(String title, bool isPrimary, Icon icn) {
 class _WelcomeViewState extends State<WelcomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(),
-      body: Container(
-        color: bgColor,
-        height: MediaQuery.of(context).size.height * 1,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.10,
-                bottom: MediaQuery.of(context).size.height * 0.10,
-              ),
+    return StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        onInit: (store) {
+          print("###### isLogged" + store.state.isLogged.toString());
+          print("###### rNumber" + store.state.loggedUser.rNumber.toString());
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: appBar(state.loggedUser.rNumber),
+            body: Container(
+              color: bgColor,
+              height: MediaQuery.of(context).size.height * 1,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Hello ",
-                        style: TextStyle(fontSize: 26),
-                      ),
-                      Text(
-                        "John Doe !",
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
-                    child: Text(
-                      "(r0013481)",
-                      style: TextStyle(fontSize: 20),
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.10,
+                      bottom: MediaQuery.of(context).size.height * 0.10,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Hello ",
+                              style: TextStyle(fontSize: 26),
+                            ),
+                            Text(
+                              state.loggedUser.firstName +
+                                  " " +
+                                  state.loggedUser.lastName +
+                                  " !",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          child: Text(
+                            "(" + state.loggedUser.rNumber + ")",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    indent: 30,
+                    endIndent: 30,
+                    height: 3,
+                    thickness: 2,
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 30, right: 30, top: 15, bottom: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // on Check certificates pressed
+                                    print("Check certificates pressed");
+                                  },
+                                  child: buttonHelper(
+                                      "Check Certificates",
+                                      true,
+                                      Icon(
+                                        Icons.assignment,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.all(20)),
+                              Container(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // on Scan pressed
+                                    print("Scan");
+                                  },
+                                  child: buttonHelper(
+                                    "Scan",
+                                    true,
+                                    Icon(
+                                      Icons.qr_code,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            child: GestureDetector(
+                              onTap: () {
+                                // on Logout pressed
+                                print("Logout pressed");
+                              },
+                              child: buttonHelper(
+                                "Logout",
+                                false,
+                                Icon(
+                                  Icons.logout,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Divider(
-              indent: 30,
-              endIndent: 30,
-              height: 3,
-              thickness: 2,
-            ),
-            Expanded(
-              child: Container(
-                margin:
-                    EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          child: GestureDetector(
-                            onTap: () {
-                              // on Check certificates pressed
-                              print("Check certificates pressed");
-                            },
-                            child: buttonHelper(
-                                "Check Certificates",
-                                true,
-                                Icon(
-                                  Icons.assignment,
-                                  color: Colors.white,
-                                )),
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.all(20)),
-                        Container(
-                          child: GestureDetector(
-                            onTap: () {
-                              // on Scan pressed
-                              print("Scan");
-                            },
-                            child: buttonHelper(
-                              "Scan",
-                              true,
-                              Icon(
-                                Icons.qr_code,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          // on Logout pressed
-                          print("Logout pressed");
-                        },
-                        child: buttonHelper(
-                          "Logout",
-                          false,
-                          Icon(
-                            Icons.logout,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
