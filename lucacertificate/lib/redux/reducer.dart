@@ -4,7 +4,16 @@ import 'package:lucacertificate/redux/app_state.dart';
 AppState updateUserTokenReducer(AppState currentState, dynamic action) {
   if (action is UpdateIsLogged) {
     return AppState(
-        isLogged: action.updatedIsLogged, loggedUser: action.updatedLoggedUser);
+      certificateList: currentState.certificateList,
+      isLogged: action.updatedIsLogged,
+      loggedUser: action.updatedLoggedUser,
+    );
+  } else if (action is UpdateCertificatesAction) {
+    return AppState(
+      isLogged: currentState.isLogged,
+      loggedUser: currentState.loggedUser,
+      certificateList: action.updatedCertificateList,
+    );
   }
   return currentState;
 }

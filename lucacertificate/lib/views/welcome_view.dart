@@ -53,6 +53,12 @@ class _WelcomeViewState extends State<WelcomeView> {
         onInit: (store) {
           print("###### isLogged" + store.state.isLogged.toString());
           print("###### rNumber" + store.state.loggedUser.rNumber.toString());
+          if (store.state.certificateList != null) {
+            print(
+                "###### List" + store.state.certificateList.length.toString());
+          }
+
+          print("#### waiting for the list");
         },
         builder: (context, state) {
           return Scaffold(

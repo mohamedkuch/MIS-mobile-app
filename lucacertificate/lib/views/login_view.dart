@@ -51,9 +51,7 @@ class _LoginViewState extends State<LoginView> {
       body: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onWillChange: (prevState, state) {
-          print("###### isLogged" + state.isLogged.toString());
-          print("######" + state.loggedUser.rNumber.toString());
-          if (state.isLogged) {
+          if (state.isLogged && state.certificateList != null) {
             Navigator.pushNamed(context, '/welcome');
           }
           return null;
