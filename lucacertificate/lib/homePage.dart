@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -26,6 +27,16 @@ Widget primaryButtonHelper(String title) {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      bool isLogged = prefs.getBool("isLogged");
+
+      // if (isLogged) Navigator.pushNamed(context, '/welcome');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
