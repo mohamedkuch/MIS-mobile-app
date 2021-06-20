@@ -24,7 +24,8 @@ void lucaMiddleware(
       User userLogged = res['data'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("userTokenBase64", userLogged.tokenBase64);
-      await prefs.setString("rNumber", userLogged.tokenBase64);
+      await prefs.setString("rNumber", userLogged.rNumber);
+      await prefs.setString("lastName", userLogged.lastName);
       await prefs.setBool("isLogged", true);
 
       store.dispatch(UpdateIsLogged(true, userLogged));

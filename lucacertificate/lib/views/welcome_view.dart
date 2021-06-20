@@ -49,17 +49,32 @@ class _WelcomeViewState extends State<WelcomeView> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
-        converter: (store) => store.state,
-        onInit: (store) {
+      converter: (store) => store.state,
+      onInit: (store) {
+        if (store.state.loggedUser != null) {
           print("######## State ###########");
           print("###### isLogged" + store.state.isLogged.toString());
           print("###### rNumber" + store.state.loggedUser.rNumber.toString());
           print("###### certificateList length " +
               store.state.certificateList.length.toString());
           print("##########################");
-        },
-        builder: (context, state) {
+        }
+      },
+      builder: (context, state) {
+        if (state.loggedUser == null) {
           return Scaffold(
+            body: Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Scaffold(
             appBar: appBar(state.loggedUser.rNumber),
             body: Container(
               color: bgColor,
@@ -177,7 +192,9 @@ class _WelcomeViewState extends State<WelcomeView> {
                 ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
