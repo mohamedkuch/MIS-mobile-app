@@ -32,8 +32,8 @@ Widget primaryButtonHelper(String title) {
 }
 
 class _LoginViewState extends State<LoginView> {
-  TextEditingController _textEditingController = TextEditingController();
   String _rNumber = "";
+  String _lastName = "";
 
   @override
   void initState() {
@@ -41,6 +41,7 @@ class _LoginViewState extends State<LoginView> {
 
     setState(() {
       _rNumber = "";
+      _lastName = "";
     });
   }
 
@@ -107,6 +108,7 @@ class _LoginViewState extends State<LoginView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  // rNumber TextField
                   Container(
                     margin: EdgeInsets.only(left: 30, right: 30),
                     decoration: BoxDecoration(
@@ -117,16 +119,15 @@ class _LoginViewState extends State<LoginView> {
                       onSubmitted: (text) {
                         setState(() {
                           _rNumber = text;
-                          print("### rNumber : " + text);
+                          print("### _rNumber : " + text);
                         });
                       },
                       onChanged: (text) {
                         setState(() {
                           _rNumber = text;
-                          print("### userToken : " + text);
+                          print("### _rNumber : " + text);
                         });
                       },
-                      controller: _textEditingController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(20.0),
                         focusedBorder: OutlineInputBorder(
@@ -151,6 +152,51 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                   ),
+                  // LastName Textfield
+                  Container(
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(33),
+                    ),
+                    child: TextField(
+                      onSubmitted: (text) {
+                        setState(() {
+                          _lastName = text;
+                          print("### lastName : " + text);
+                        });
+                      },
+                      onChanged: (text) {
+                        setState(() {
+                          _lastName = text;
+                          print("### lastName : " + text);
+                        });
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(20.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black26,
+                            width: 1.2,
+                          ),
+                          borderRadius: BorderRadius.circular(33),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black26,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(33),
+                        ),
+                        hintText: 'Last Name',
+                        hintStyle: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.all(5)),
                   Column(
                     children: [
                       Container(
@@ -161,7 +207,7 @@ class _LoginViewState extends State<LoginView> {
                               // on Login pressed
                               StoreProvider.of<AppState>(context).dispatch(
                                 // LoginAction("r0013332", "Kechaou"),
-                                LoginAction(_rNumber, "Kechaou"),
+                                LoginAction(_rNumber, _lastName),
                               );
                             },
                             child: primaryButtonHelper("Login"),
@@ -182,12 +228,14 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ],
                   ),
-                  StoreConnector<AppState, bool>(
-                    converter: (store) => store.state.isLogged,
-                    builder: (context, bool isLogged) {
-                      return Text(isLogged.toString());
-                    },
-                  ),
+                  Padding(padding: EdgeInsets.all(5)),
+
+                  // StoreConnector<AppState, bool>(
+                  //   converter: (store) => store.state.isLogged,
+                  //   builder: (context, bool isLogged) {
+                  //     return Text(isLogged.toString());
+                  //   },
+                  // ),
                 ],
               ),
             )
