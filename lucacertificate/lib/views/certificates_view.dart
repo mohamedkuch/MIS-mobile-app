@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/redux/app_state.dart';
 
 class CertifactesView extends StatefulWidget {
   CertifactesView({Key key}) : super(key: key);
@@ -46,88 +48,102 @@ Widget buttonHelper(String title, bool isPrimary, Icon icn) {
 class _CertifactesViewState extends State<CertifactesView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar("test"),
-      body: Container(
-        color: bgColor,
-        child: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.05,
-                bottom: MediaQuery.of(context).size.height * 0.05,
-              ),
-              child: Container(
-                child: Text(
-                  "Certificates",
-                  style: TextStyle(fontSize: 26),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Divider(
-              indent: 30,
-              endIndent: 30,
-              height: 3,
-              thickness: 2,
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: 20,
-              itemBuilder: (ctx, int index) {
-                return Container(
-                  height: 80,
-                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Card(
-                    elevation: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Text(
-                            "Machine $index",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          margin: EdgeInsets.only(left: 30),
-                        ),
-                        Container(
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
-                          ),
-                          margin: EdgeInsets.only(right: 30),
-                        ),
-                      ],
+    return StoreConnector<AppState, AppState>(
+      converter: (store) => store.state,
+      onInit: (store) {
+        print("######## State page Certificates ###########");
+        print("###### isLogged" + store.state.isLogged.toString());
+        print("###### rNumber" + store.state.loggedUser.rNumber.toString());
+        print("###### certificateList length " +
+            store.state.certificateList.length.toString());
+        print("##########################");
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: appBar(state.loggedUser.rNumber),
+          body: Container(
+            color: bgColor,
+            child: ListView(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.05,
+                    bottom: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  child: Container(
+                    child: Text(
+                      "Certificates",
+                      style: TextStyle(fontSize: 26),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                );
-              },
+                ),
+                Divider(
+                  indent: 30,
+                  endIndent: 30,
+                  height: 3,
+                  thickness: 2,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: state.certificateList.length,
+                  itemBuilder: (ctx, int index) {
+                    return Container(
+                      height: 80,
+                      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      child: Card(
+                        elevation: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Text(
+                                state.certificateList[index].name,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              margin: EdgeInsets.only(left: 30),
+                            ),
+                            Container(
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              margin: EdgeInsets.only(right: 30),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Padding(
+                    padding: EdgeInsets.all(
+                  MediaQuery.of(context).size.height * 0.05,
+                ))
+              ],
             ),
-            Padding(
-                padding: EdgeInsets.all(
-              MediaQuery.of(context).size.height * 0.05,
-            ))
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        label: Text('Back'),
-        icon: Icon(Icons.arrow_back),
-        backgroundColor: Colors.grey.shade900,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              // Add your onPressed code here!
+              Navigator.pop(context);
+            },
+            label: Text('Back'),
+            icon: Icon(Icons.arrow_back),
+            backgroundColor: Colors.grey.shade900,
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        );
+      },
     );
   }
 }

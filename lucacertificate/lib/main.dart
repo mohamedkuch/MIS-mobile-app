@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginView(),
           '/welcome': (context) => WelcomeView(),
           '/scan': (context) => ScanView(),
-          '/Certifactes': (context) => CertifactesView()
+          '/certifactes': (context) => CertifactesView()
         },
         initialRoute: '/',
       ),

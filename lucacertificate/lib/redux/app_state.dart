@@ -4,7 +4,7 @@ import 'package:lucacertificate/models/user.dart';
 class AppState {
   bool isLogged;
   User loggedUser;
-  List<Certificate> certificateList;
+  List<Certificate> certificateList = [];
 
   AppState({
     this.isLogged,

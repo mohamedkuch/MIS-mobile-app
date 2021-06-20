@@ -51,14 +51,12 @@ class _WelcomeViewState extends State<WelcomeView> {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) {
+          print("######## State ###########");
           print("###### isLogged" + store.state.isLogged.toString());
           print("###### rNumber" + store.state.loggedUser.rNumber.toString());
-          if (store.state.certificateList != null) {
-            print(
-                "###### List" + store.state.certificateList.length.toString());
-          }
-
-          print("#### waiting for the list");
+          print("###### certificateList length " +
+              store.state.certificateList.length.toString());
+          print("##########################");
         },
         builder: (context, state) {
           return Scaffold(
@@ -125,6 +123,8 @@ class _WelcomeViewState extends State<WelcomeView> {
                                   onTap: () {
                                     // on Check certificates pressed
                                     print("Check certificates pressed");
+                                    Navigator.pushNamed(
+                                        context, '/certifactes');
                                   },
                                   child: buttonHelper(
                                       "Check Certificates",
