@@ -20,13 +20,14 @@ void lucaMiddleware(
       print(res);
     } else {
       User userLogged = res['data'];
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("userTokenBase64", userLogged.tokenBase64);
       await prefs.setString("rNumber", userLogged.tokenBase64);
       await prefs.setBool("isLogged", true);
-      store.dispatch(
-        UpdateIsLogged(true),
-      );
+
+      store.dispatch(UpdateIsLogged(true, userLogged));
+      // store.dispatch(UpdateLoggedUser(userLogged));
     }
   }
   next(action);
