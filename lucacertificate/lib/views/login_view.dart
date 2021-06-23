@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   LoginView({Key key}) : super(key: key);
