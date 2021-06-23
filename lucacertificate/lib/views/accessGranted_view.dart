@@ -28,8 +28,9 @@ class AccessGranted extends StatelessWidget {
                   ),
                   child: Container(
                     child: Text(
-                      "Access Granted !",
-                      style: TextStyle(fontSize: 26),
+                      selectedCert.name,
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -38,12 +39,42 @@ class AccessGranted extends StatelessWidget {
                   margin: EdgeInsets.only(
                     left: 30,
                     right: 30,
-                    bottom: MediaQuery.of(context).size.height * 0.05,
+                    bottom: 20,
                   ),
                   child: Text(
-                    "you have the required certificate to use the machine.",
-                    style: TextStyle(fontSize: 20),
+                    "You have  aquired this certificate after successfully completed the training.",
+                    style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(6),
+                        child: Icon(
+                          Icons.date_range_rounded,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: 8,
+                          top: 4,
+                          bottom: 4,
+                          right: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey.shade800,
+                        ),
+                        child: Text(
+                          selectedCert.date.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Divider(
@@ -87,6 +118,23 @@ class AccessGranted extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                  child: Text(
+                    "Overview",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  child: Text(
+                    selectedCert.body,
+                    style: TextStyle(height: 1.6),
                   ),
                 ),
                 Padding(
