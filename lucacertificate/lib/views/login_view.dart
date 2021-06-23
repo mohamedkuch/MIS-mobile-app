@@ -209,7 +209,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(5)),
+                        Padding(padding: EdgeInsets.all(10)),
                         Column(
                           children: [
                             Container(
@@ -242,8 +242,7 @@ class _LoginViewState extends State<LoginView> {
                             // ),
                           ],
                         ),
-                        // Padding(padding: EdgeInsets.all(5)),
-                        Text(state.isLogged.toString())
+                        Padding(padding: EdgeInsets.all(5)),
                       ],
                     ),
                   )
