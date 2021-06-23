@@ -4,7 +4,7 @@ import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/homePage.dart';
 import 'package:lucacertificate/redux/middleware.dart';
 import 'package:lucacertificate/redux/reducer.dart';
-// import 'package:lucacertificate/views/accessDenied_view.dart';
+import 'package:lucacertificate/views/accessDenied_view.dart';
 import 'package:lucacertificate/views/certificates_view.dart';
 import 'package:lucacertificate/views/login_view.dart';
 import 'package:lucacertificate/views/scan_view.dart';
@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginView(),
           '/welcome': (context) => WelcomeView(),
           '/scan': (context) => ScanView(),
-          '/certifactes': (context) => CertifactesView()
+          '/certifactes': (context) => CertifactesView(),
+          '/certificate-view': (context) => AccessDeniedView()
         },
         initialRoute: '/',
       ),

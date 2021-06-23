@@ -92,34 +92,46 @@ class _CertifactesViewState extends State<CertifactesView> {
                     return Container(
                       height: 80,
                       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                      child: Card(
-                        elevation: 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Text(
-                                state.certificateList[index].name,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              margin: EdgeInsets.only(left: 30),
-                            ),
-                            Container(
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(4),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            '/certificate-view',
+                            arguments: {'data': state.certificateList[index]},
+                          );
+                        },
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Text(
+                                  state.certificateList[index].name,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                child: Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                ),
+                                margin: EdgeInsets.only(left: 30),
                               ),
-                              margin: EdgeInsets.only(right: 30),
-                            ),
-                          ],
+                              Container(
+                                child: Container(
+                                  padding: EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                margin: EdgeInsets.only(right: 30),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -134,7 +146,6 @@ class _CertifactesViewState extends State<CertifactesView> {
           ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              // Add your onPressed code here!
               Navigator.pop(context);
             },
             label: Text('Back'),
