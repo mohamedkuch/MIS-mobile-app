@@ -15,5 +15,13 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
       certificateList: action.updatedCertificateList,
     );
   }
+  if (action is UpdateScannedMachine) {
+    return AppState(
+      isLogged: currentState.isLogged,
+      loggedUser: currentState.loggedUser,
+      certificateList: currentState.certificateList,
+      scannedMachine: action.updatedScannedMachine,
+    );
+  }
   return currentState;
 }

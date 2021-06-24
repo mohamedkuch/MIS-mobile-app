@@ -1,5 +1,6 @@
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/models/certificate.dart';
+import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
 import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
@@ -50,6 +51,24 @@ void lucaMiddleware(
           certificateList,
         ));
       }
+    }
+  }
+  if (action is ScanMachineAction) {
+    print("#####" + action.scannedMachineId);
+    // Get Scanned Machine
+    final res = await Services.getScannedMachine(
+        action.scannedMachineId, store.state.loggedUser.tokenBase64);
+    print(res);
+    if (res['error'] != null) {
+      print(res);
+    } else {
+      Machine scannedMachine = res['data'];
+
+      store.dispatch(
+        UpdateScannedMachine(
+          scannedMachine,
+        ),
+      );
     }
   }
   next(action);

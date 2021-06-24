@@ -13,7 +13,6 @@ String certificateToJson(List<Certificate> data) =>
 class Certificate {
   Certificate({
     this.id,
-    this.machineKey,
     this.name,
     this.body,
     this.date,
@@ -21,7 +20,6 @@ class Certificate {
   });
 
   String id;
-  String machineKey;
   String name;
   String body;
   DateTime date;
@@ -29,7 +27,6 @@ class Certificate {
 
   factory Certificate.fromJson(Map<String, dynamic> json) => Certificate(
         id: json["_id"],
-        machineKey: json["machineKey"],
         name: json["name"],
         body: json["body"],
         date: DateTime.parse(json["date"]),
@@ -38,7 +35,6 @@ class Certificate {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "machineKey": machineKey,
         "name": name,
         "body": body,
         "date": date.toIso8601String(),

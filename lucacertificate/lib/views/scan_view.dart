@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 import 'package:barcode_scan_fix/barcode_scan.dart';
 
@@ -58,11 +59,19 @@ class _ScanViewState extends State<ScanView> {
                   margin: EdgeInsets.only(left: 60, right: 60),
                   child: GestureDetector(
                     onTap: () async {
-                      String codeSanner =
-                          await BarcodeScanner.scan(); //barcode scnner
-                      setState(() {
-                        qrCodeResult = codeSanner;
-                      });
+                      // String codeSanner =
+                      //     await BarcodeScanner.scan(); //barcode scnner
+                      // setState(() {
+                      //   qrCodeResult = codeSanner;
+                      // });
+                      // if (qrCodeResult != null) {
+                      //   StoreProvider.of<AppState>(context).dispatch(
+                      //     ScanMachineAction(qrCodeResult),
+                      //   );
+                      // }
+                      StoreProvider.of<AppState>(context).dispatch(
+                        ScanMachineAction("60d38d2689af3c079c687aa7"),
+                      );
                     },
                     child: buttonHelper(
                       "Scan",
@@ -94,6 +103,9 @@ class _ScanViewState extends State<ScanView> {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      Text(state.scannedMachine == null
+                          ? ""
+                          : state.scannedMachine.name)
                     ],
                   ),
                 ),

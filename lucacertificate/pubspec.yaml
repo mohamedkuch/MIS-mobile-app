@@ -33,6 +33,7 @@ dependencies:
   redux: ^5.0.0
   http: ^0.13.3
   barcode_scan_fix: ^1.0.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

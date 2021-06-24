@@ -3,6 +3,14 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/redux/app_state.dart';
+import 'package:intl/intl.dart';
+
+String formatDate(DateTime date) {
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final String formatted = formatter.format(date);
+  print(formatted);
+  return formatted;
+}
 
 class AccessGranted extends StatelessWidget {
   const AccessGranted({Key key}) : super(key: key);
@@ -70,7 +78,7 @@ class AccessGranted extends StatelessWidget {
                           color: Colors.grey.shade800,
                         ),
                         child: Text(
-                          selectedCert.date.toString(),
+                          formatDate(selectedCert.date),
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

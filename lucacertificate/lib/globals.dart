@@ -5,6 +5,7 @@ const bgColor = Color.fromRGBO(225, 225, 225, 1);
 
 Widget appBar(String rNumber) {
   return AppBar(
+    brightness: Brightness.dark,
     leading: Builder(
       builder: (BuildContext context) {
         return Padding(

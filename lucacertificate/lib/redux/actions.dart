@@ -1,4 +1,5 @@
 import 'package:lucacertificate/models/certificate.dart';
+import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
 
 class UpdateIsLogged {
@@ -12,8 +13,14 @@ class LoginAction {
   LoginAction(this.rNumber, this.lastName);
 }
 
-class GetCertificatesAction {
-  GetCertificatesAction();
+class ScanMachineAction {
+  final String scannedMachineId;
+  ScanMachineAction(this.scannedMachineId);
+}
+
+class UpdateScannedMachine {
+  final Machine updatedScannedMachine;
+  UpdateScannedMachine(this.updatedScannedMachine);
 }
 
 class UpdateCertificatesAction {
