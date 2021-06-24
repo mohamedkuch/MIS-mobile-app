@@ -12,6 +12,7 @@ class ScanView extends StatefulWidget {
 
 class _ScanViewState extends State<ScanView> {
   String qrCodeResult = "Not Yet Scanned";
+  bool isScanning = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,20 @@ class _ScanViewState extends State<ScanView> {
                       StoreProvider.of<AppState>(context).dispatch(
                         ScanMachineAction("60d38d2689af3c079c687aa7"),
                       );
+                      setState(() {
+                        this.isScanning = true;
+                      });
+
+                      if (state.scannedMachine != null) {
+                        print("######" + state.scannedMachine.name);
+                        setState(() {
+                          this.isScanning = false;
+                        });
+                        Navigator.of(context).pushNamed(
+                          '/certificate-view',
+                          arguments: {'data': state.certificateList[0]},
+                        );
+                      }
                     },
                     child: buttonHelper(
                       "Scan",
@@ -80,6 +95,7 @@ class _ScanViewState extends State<ScanView> {
                         Icons.camera_alt_rounded,
                         color: Colors.white,
                       ),
+                      this.isScanning,
                     ),
                   ),
                 ),
@@ -128,7 +144,7 @@ class _ScanViewState extends State<ScanView> {
   }
 }
 
-Widget buttonHelper(String title, bool isPrimary, Icon icn) {
+Widget buttonHelper(String title, bool isPrimary, Icon icn, bool isScanning) {
   return Container(
     decoration: BoxDecoration(
       color: isPrimary ? Colors.black : Colors.red,
@@ -148,13 +164,21 @@ Widget buttonHelper(String title, bool isPrimary, Icon icn) {
               right: 30,
             ),
             child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: isScanning
+                  ? Container(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
+                      height: 20,
+                      width: 20,
+                    )
+                  : Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
         ),
