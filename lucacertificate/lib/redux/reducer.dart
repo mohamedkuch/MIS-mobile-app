@@ -34,6 +34,19 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
       certificateList: currentState.certificateList,
       machineList: currentState.machineList,
       scannedMachine: action.updatedScannedMachine,
+      activeMachine: currentState.activeMachine,
+    );
+  }
+
+  // ####### Active Maching QR
+  if (action is UpdateActiveMachine) {
+    return AppState(
+      isLogged: currentState.isLogged,
+      loggedUser: currentState.loggedUser,
+      certificateList: currentState.certificateList,
+      machineList: currentState.machineList,
+      scannedMachine: currentState.scannedMachine,
+      activeMachine: action.updatedActiveMachine,
     );
   }
   return currentState;

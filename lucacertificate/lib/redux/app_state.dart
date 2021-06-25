@@ -9,12 +9,14 @@ class AppState {
   List<Machine> machineList = [];
 
   Machine scannedMachine;
+  Machine activeMachine;
 
   AppState({
     this.isLogged,
     this.loggedUser,
     this.certificateList,
     this.scannedMachine,
+    this.activeMachine,
     this.machineList,
   });
 

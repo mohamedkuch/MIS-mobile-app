@@ -65,22 +65,21 @@ Widget activeButtonHelper(String title, Icon icn) {
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(
-              right: 30,
+              left: 30,
             ),
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+            child: Text(
+              title,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ),
         Padding(
             padding: EdgeInsets.only(
-              right: 20,
+              right: 30,
             ),
             child: icn),
       ],
@@ -89,7 +88,7 @@ Widget activeButtonHelper(String title, Icon icn) {
 }
 
 Widget topViewHelper(AppState state, context) {
-  if (state.scannedMachine != null) {
+  if (state.activeMachine != null) {
     return Container(
       padding: EdgeInsets.only(
         left: 30,
@@ -97,10 +96,8 @@ Widget topViewHelper(AppState state, context) {
       ),
       child: GestureDetector(
         onTap: () {
-          print("Active Machine pressed");
-
           Certificate scannedCert = getCertificateById(
-              state.certificateList, state.scannedMachine.certificateKey);
+              state.certificateList, state.activeMachine.certificateKey);
 
           if (scannedCert != null) {
             Navigator.of(context).pushNamed(
@@ -110,7 +107,7 @@ Widget topViewHelper(AppState state, context) {
           }
         },
         child: activeButtonHelper(
-          "Active Machine : " + state.scannedMachine.name,
+          "Machine : " + state.activeMachine.name,
           Icon(
             Icons.circle,
             color: Colors.green.shade600,

@@ -1,3 +1,4 @@
+import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
@@ -82,20 +83,31 @@ void lucaMiddleware(
       // Error sending request
     } else {
       Machine scannedMachine = res['data'];
-
-      final resPostUseMachine = await Services.postUseMachine(
-        scannedMachine.id,
-        store.state.loggedUser.rNumber,
-        store.state.loggedUser.tokenBase64,
-      );
-      print("####### 22");
-      print(resPostUseMachine);
-
       store.dispatch(
         UpdateScannedMachine(
           scannedMachine,
         ),
       );
+
+      // verify if userhas the right to use the machine
+
+      Certificate scannedCert = getCertificateById(
+          store.state.certificateList, scannedMachine.certificateKey);
+
+      if (scannedCert != null) {
+        final resPostUseMachine = await Services.postUseMachine(
+          scannedMachine.id,
+          store.state.loggedUser.rNumber,
+          store.state.loggedUser.tokenBase64,
+        );
+        print("####### user has the right to use machine");
+        print(resPostUseMachine);
+        store.dispatch(
+          UpdateActiveMachine(
+            scannedMachine,
+          ),
+        );
+      }
     }
   }
   next(action);

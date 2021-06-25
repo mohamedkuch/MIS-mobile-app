@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
-import 'package:lucacertificate/models/certificate.dart';
+import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 
 class AccessDeniedView extends StatefulWidget {
@@ -50,7 +50,7 @@ class _AccessDeniedViewState extends State<AccessDeniedView> {
   @override
   Widget build(BuildContext context) {
     final Map dataArguments = ModalRoute.of(context).settings.arguments;
-    final Certificate selectedCert = dataArguments['data'];
+    final Machine selectedMachine = dataArguments['data'];
 
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
@@ -81,7 +81,7 @@ class _AccessDeniedViewState extends State<AccessDeniedView> {
                     bottom: MediaQuery.of(context).size.height * 0.05,
                   ),
                   child: Text(
-                    "You dont have a certain certificate to use the machine.",
+                    "You dont have the needed certificate to use the machine.",
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
@@ -105,7 +105,7 @@ class _AccessDeniedViewState extends State<AccessDeniedView> {
                       children: [
                         Container(
                           child: Text(
-                            selectedCert.name,
+                            selectedMachine.name,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),

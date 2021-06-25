@@ -23,6 +23,11 @@ class UpdateScannedMachine {
   UpdateScannedMachine(this.updatedScannedMachine);
 }
 
+class UpdateActiveMachine {
+  final Machine updatedActiveMachine;
+  UpdateActiveMachine(this.updatedActiveMachine);
+}
+
 class UpdateCertificatesAction {
   final User updatedLoggedUser;
   final bool updatedIsLogged;
