@@ -23,18 +23,14 @@ class _ScanViewState extends State<ScanView> {
         if (this.isScanningQR) {
           // IF QR Code scanned
           if (this.qrScanned.startsWith("qr-")) {
-            for (var i = 0; i < state.certificateList.length; i++) {
-              Certificate cert = state.certificateList[i];
+            Certificate scannedCert = getCertificateById(
+                state.certificateList, state.scannedMachine.certificateKey);
 
-              if (state.scannedMachine.certificateKey == cert.id.toString()) {
-                Navigator.of(context).pushNamed(
-                  '/certificate-view',
-                  arguments: {
-                    'data': state.certificateList[i],
-                    'isScanView': true
-                  },
-                );
-              }
+            if (scannedCert != null) {
+              Navigator.of(context).pushNamed(
+                '/certificate-view',
+                arguments: {'data': scannedCert, 'isScanView': true},
+              );
             }
           }
 
@@ -90,44 +86,44 @@ class _ScanViewState extends State<ScanView> {
                   margin: EdgeInsets.only(left: 60, right: 60),
                   child: GestureDetector(
                     onTap: () async {
-                      setState(() {
-                        this.isScanningQR = true;
-                        // bar code
-                        // this.qrScanned = "bc-60d38d2689af3c079c687aa7";
-                        // qr code
-                        this.qrScanned = "qr-60d38d2689af3c079c687aa7";
-                      });
-
-                      if (this.qrScanned.startsWith("qr-")) {
-                        var machineId = this.qrScanned.substring(3);
-
-                        StoreProvider.of<AppState>(context).dispatch(
-                          ScanMachineAction(machineId),
-                        );
-                      } else if (this.qrScanned.startsWith("br-")) {
-                      } else {
-                        setState(() {
-                          this.isScanningQR = false;
-                        });
-                      }
-
-                      // String codeSanner =
-                      //     await BarcodeScanner.scan(); //barcode scnner
-                      // this.setState(() {
-                      //   this.qrScanned = codeSanner;
+                      // setState(() {
+                      //   this.isScanningQR = true;
+                      //   // bar code
+                      //   // this.qrScanned = "bc-60d38d2689af3c079c687aa7";
+                      //   // qr code
+                      //   this.qrScanned = "qr-60d38d2689af3c079c687aa7";
                       // });
 
-                      // // QR Code
                       // if (this.qrScanned.startsWith("qr-")) {
                       //   var machineId = this.qrScanned.substring(3);
 
                       //   StoreProvider.of<AppState>(context).dispatch(
                       //     ScanMachineAction(machineId),
                       //   );
-                      //   setState(() {
-                      //     this.isScanningQR = true;
-                      //   });
                       // }
+
+                      String codeSanner =
+                          await BarcodeScanner.scan(); //barcode scnner
+                      this.setState(() {
+                        this.qrScanned = codeSanner;
+                      });
+
+                      // QR Code
+                      if (this.qrScanned.startsWith("qr-")) {
+                        var machineId = this.qrScanned.substring(3);
+
+                        StoreProvider.of<AppState>(context).dispatch(
+                          ScanMachineAction(machineId),
+                        );
+                        setState(() {
+                          this.isScanningQR = true;
+                        });
+                      } else if (this.qrScanned.startsWith("br-")) {
+                      } else {
+                        setState(() {
+                          this.isScanningQR = false;
+                        });
+                      }
                     },
                     child: buttonHelper(
                       "Scan",
