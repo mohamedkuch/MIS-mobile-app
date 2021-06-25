@@ -33,3 +33,8 @@ class UpdateCertificatesAction {
     this.updatedCertificateList,
   );
 }
+
+class UpdateMachineListAction {
+  final List<Machine> updateMachinesList;
+  UpdateMachineListAction(this.updateMachinesList);
+}

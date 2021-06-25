@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/models/certificate.dart';
+import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 import 'package:intl/intl.dart';
 
@@ -19,6 +20,7 @@ class AccessGranted extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map dataArguments = ModalRoute.of(context).settings.arguments;
     final Certificate selectedCert = dataArguments['data'];
+    bool isScanView = dataArguments['isScanView'];
 
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
@@ -145,6 +147,7 @@ class AccessGranted extends StatelessWidget {
                     style: TextStyle(height: 1.6),
                   ),
                 ),
+                safetyCardView(isScanView, state.scannedMachine),
                 Padding(
                   padding: EdgeInsets.all(
                     MediaQuery.of(context).size.height * 0.05,
@@ -166,6 +169,43 @@ class AccessGranted extends StatelessWidget {
       },
     );
   }
+}
+
+Widget safetyCardView(bool isScanView, Machine scannedMachine) {
+  if (isScanView) {
+    return Container(
+      margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Divider(
+            height: 3,
+            thickness: 2,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 30,
+            ),
+            child: Text(
+              "Machine Specs",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 30, bottom: 20),
+            child: Text("Name : " + scannedMachine.name),
+          ),
+          Container(
+            child: Image.network(scannedMachine.safetyCardUrl),
+          )
+        ],
+      ),
+    );
+  }
+  return Padding(padding: EdgeInsets.all(0));
 }
 
 Widget buttonHelper(String title, bool isPrimary, Icon icn) {

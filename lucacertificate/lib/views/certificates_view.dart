@@ -96,7 +96,10 @@ class _CertifactesViewState extends State<CertifactesView> {
                         onTap: () {
                           Navigator.of(context).pushNamed(
                             '/certificate-view',
-                            arguments: {'data': state.certificateList[index]},
+                            arguments: {
+                              'data': state.certificateList[index],
+                              'isScanView': false,
+                            },
                           );
                         },
                         child: Card(

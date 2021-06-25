@@ -6,6 +6,8 @@ class AppState {
   bool isLogged;
   User loggedUser;
   List<Certificate> certificateList = [];
+  List<Machine> machineList = [];
+
   Machine scannedMachine;
 
   AppState({
@@ -13,6 +15,7 @@ class AppState {
     this.loggedUser,
     this.certificateList,
     this.scannedMachine,
+    this.machineList,
   });
 
   // factory AppState.initial(){

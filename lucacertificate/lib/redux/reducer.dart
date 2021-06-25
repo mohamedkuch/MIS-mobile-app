@@ -8,18 +8,31 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
       isLogged: action.updatedIsLogged,
       loggedUser: action.updatedLoggedUser,
     );
-  } else if (action is UpdateCertificatesAction) {
+  }
+
+  if (action is UpdateCertificatesAction) {
     return AppState(
       isLogged: currentState.isLogged,
       loggedUser: currentState.loggedUser,
       certificateList: action.updatedCertificateList,
     );
   }
+
+  if (action is UpdateMachineListAction) {
+    return AppState(
+        isLogged: currentState.isLogged,
+        loggedUser: currentState.loggedUser,
+        certificateList: currentState.certificateList,
+        machineList: action.updateMachinesList);
+  }
+
+  // ####### Scanning Maching QR
   if (action is UpdateScannedMachine) {
     return AppState(
       isLogged: currentState.isLogged,
       loggedUser: currentState.loggedUser,
       certificateList: currentState.certificateList,
+      machineList: currentState.machineList,
       scannedMachine: action.updatedScannedMachine,
     );
   }

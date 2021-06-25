@@ -8,6 +8,9 @@ Machine machineFromJson(String str) => Machine.fromJson(json.decode(str));
 
 String machineToJson(Machine data) => json.encode(data.toJson());
 
+List<Machine> machineListFromJson(String str) =>
+    List<Machine>.from(json.decode(str).map((x) => Machine.fromJson(x)));
+
 class Machine {
   Machine({
     this.id,

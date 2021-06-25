@@ -1,4 +1,3 @@
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
@@ -16,11 +15,14 @@ void lucaMiddleware(
   if (action is LoginAction) {
     // Get User details
     final res = await Services.login(action.rNumber, action.lastName);
+
+    // Post Login
+    print("##### Login user");
     print(res);
 
     // check if user logged in successfully
     if (res['error'] != null) {
-      print(res);
+      // Error sending request
     } else {
       User userLogged = res['data'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,16 +35,15 @@ void lucaMiddleware(
     }
   } else if (action is UpdateIsLogged) {
     if (action.updatedIsLogged == true) {
-      print("getting certificates");
-
       // Get Certificates
       final res = await Services.getCertificates(
           action.updatedLoggedUser.rNumber,
           action.updatedLoggedUser.tokenBase64);
+      print("######## getting certificates");
       print(res);
 
       if (res['error'] != null) {
-        print(res);
+        // Error sending request
       } else {
         List<Certificate> certificateList = res['data'];
         store.dispatch(UpdateCertificatesAction(
@@ -51,16 +52,33 @@ void lucaMiddleware(
           certificateList,
         ));
       }
+
+      // Get Machines
+      final resMachines =
+          await Services.getMachines(action.updatedLoggedUser.tokenBase64);
+      print("#### Getting Machines List ");
+      print(resMachines);
+
+      if (resMachines['error'] != null) {
+        // Error sending request
+      } else {
+        List<Machine> machineList = resMachines['data'];
+        store.dispatch(
+          UpdateMachineListAction(machineList),
+        );
+      }
     }
   }
   if (action is ScanMachineAction) {
-    print("#####" + action.scannedMachineId);
+    print("##### Scanning Machine id" + action.scannedMachineId);
     // Get Scanned Machine
     final res = await Services.getScannedMachine(
         action.scannedMachineId, store.state.loggedUser.tokenBase64);
+    print("##### Getting scanned Machine ");
     print(res);
+
     if (res['error'] != null) {
-      print(res);
+      // Error sending request
     } else {
       Machine scannedMachine = res['data'];
 
