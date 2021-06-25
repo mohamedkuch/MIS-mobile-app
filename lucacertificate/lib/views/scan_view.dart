@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
+import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 import 'package:barcode_scan_fix/barcode_scan.dart';
@@ -11,23 +12,36 @@ class ScanView extends StatefulWidget {
 }
 
 class _ScanViewState extends State<ScanView> {
-  bool isScanning = false;
+  bool isScanningQR = false;
+  String qrScanned;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
       onWillChange: (prevState, state) {
-        if (this.isScanning) {
-          Navigator.of(context).pushNamed(
-            '/certificate-view',
-            arguments: {'data': state.certificateList[0]},
-          );
-        }
+        if (this.isScanningQR) {
+          // IF QR Code scanned
+          if (this.qrScanned.startsWith("qr-")) {
+            for (var i = 0; i < state.certificateList.length; i++) {
+              Certificate cert = state.certificateList[i];
 
-        setState(() {
-          this.isScanning = false;
-        });
+              if (state.scannedMachine.certificateKey == cert.id.toString()) {
+                Navigator.of(context).pushNamed(
+                  '/certificate-view',
+                  arguments: {'data': state.certificateList[i]},
+                );
+              }
+            }
+          }
+
+          // If workplace scanned
+
+          setState(() {
+            this.isScanningQR = false;
+            this.qrScanned = null;
+          });
+        }
 
         return null;
       },
@@ -73,22 +87,38 @@ class _ScanViewState extends State<ScanView> {
                   margin: EdgeInsets.only(left: 60, right: 60),
                   child: GestureDetector(
                     onTap: () async {
+                      //   setState(() {
+                      //   this.isScanningQR = true;
+                      //   // bar code
+                      //   this.qrScanned = "bc-60d38d2689af3c079c687aa7";
+                      //   // qr code
+                      //   this.qrScanned = "qr-60d38d2689af3c079c687aa7";
+                      // });
+
+                      // if (this.qrScanned.startsWith("qr-")) {
+                      //   var machineId = this.qrScanned.substring(3);
+                      //   StoreProvider.of<AppState>(context).dispatch(
+                      //     ScanMachineAction(machineId),
+                      //   );
+                      // }
+
                       String codeSanner =
                           await BarcodeScanner.scan(); //barcode scnner
-                      if (codeSanner != null) {
+                      this.setState(() {
+                        this.qrScanned = codeSanner;
+                      });
+
+                      // QR Code
+                      if (this.qrScanned.startsWith("qr-")) {
+                        var machineId = this.qrScanned.substring(3);
+
                         StoreProvider.of<AppState>(context).dispatch(
-                          ScanMachineAction(codeSanner),
+                          ScanMachineAction(machineId),
                         );
                         setState(() {
-                          this.isScanning = true;
+                          this.isScanningQR = true;
                         });
                       }
-                      // setState(() {
-                      //   this.isScanning = true;
-                      // });
-                      // StoreProvider.of<AppState>(context).dispatch(
-                      //   ScanMachineAction("60d38d2689af3c079c687aa7"),
-                      // );
                     },
                     child: buttonHelper(
                       "Scan",
@@ -97,7 +127,7 @@ class _ScanViewState extends State<ScanView> {
                         Icons.camera_alt_rounded,
                         color: Colors.white,
                       ),
-                      this.isScanning,
+                      this.isScanningQR,
                     ),
                   ),
                 ),
@@ -134,7 +164,7 @@ class _ScanViewState extends State<ScanView> {
   }
 }
 
-Widget buttonHelper(String title, bool isPrimary, Icon icn, bool isScanning) {
+Widget buttonHelper(String title, bool isPrimary, Icon icn, bool isScanningQR) {
   return Container(
     decoration: BoxDecoration(
       color: isPrimary ? Colors.black : Colors.red,
@@ -154,7 +184,7 @@ Widget buttonHelper(String title, bool isPrimary, Icon icn, bool isScanning) {
               right: 30,
             ),
             child: Center(
-              child: isScanning
+              child: isScanningQR
                   ? Container(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
