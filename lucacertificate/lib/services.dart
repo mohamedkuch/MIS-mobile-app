@@ -102,4 +102,27 @@ class Services {
       return {'error': "error sending request"};
     }
   }
+
+  static Future postUseMachine(machineID, rNummer, token) async {
+    try {
+      var buildUrl = 'https://nameless-ocean-84519.herokuapp.com/machines/' +
+          machineID +
+          '/use/' +
+          rNummer +
+          '?token=' +
+          token;
+      final res = await http.post(
+        Uri.parse(buildUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        return {'message': "user posted use of Machine  successfully"};
+      }
+      return {'error': res.body};
+    } catch (e) {
+      return {'error': "error sending request"};
+    }
+  }
 }

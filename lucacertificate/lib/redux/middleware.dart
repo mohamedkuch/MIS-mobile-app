@@ -74,6 +74,7 @@ void lucaMiddleware(
     // Get Scanned Machine
     final res = await Services.getScannedMachine(
         action.scannedMachineId, store.state.loggedUser.tokenBase64);
+
     print("##### Getting scanned Machine ");
     print(res);
 
@@ -81,6 +82,14 @@ void lucaMiddleware(
       // Error sending request
     } else {
       Machine scannedMachine = res['data'];
+
+      final resPostUseMachine = await Services.postUseMachine(
+        scannedMachine.id,
+        store.state.loggedUser.rNumber,
+        store.state.loggedUser.tokenBase64,
+      );
+      print("####### 22");
+      print(resPostUseMachine);
 
       store.dispatch(
         UpdateScannedMachine(
