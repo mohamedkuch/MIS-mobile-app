@@ -11,13 +11,26 @@ class ScanView extends StatefulWidget {
 }
 
 class _ScanViewState extends State<ScanView> {
-  String qrCodeResult = "Not Yet Scanned";
   bool isScanning = false;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
+      onWillChange: (prevState, state) {
+        if (this.isScanning) {
+          Navigator.of(context).pushNamed(
+            '/certificate-view',
+            arguments: {'data': state.certificateList[0]},
+          );
+        }
+
+        setState(() {
+          this.isScanning = false;
+        });
+
+        return null;
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: appBar(state.loggedUser.rNumber),
@@ -60,33 +73,22 @@ class _ScanViewState extends State<ScanView> {
                   margin: EdgeInsets.only(left: 60, right: 60),
                   child: GestureDetector(
                     onTap: () async {
-                      // String codeSanner =
-                      //     await BarcodeScanner.scan(); //barcode scnner
-                      // setState(() {
-                      //   qrCodeResult = codeSanner;
-                      // });
-                      // if (qrCodeResult != null) {
-                      //   StoreProvider.of<AppState>(context).dispatch(
-                      //     ScanMachineAction(qrCodeResult),
-                      //   );
-                      // }
-                      StoreProvider.of<AppState>(context).dispatch(
-                        ScanMachineAction("60d38d2689af3c079c687aa7"),
-                      );
-                      setState(() {
-                        this.isScanning = true;
-                      });
-
-                      if (state.scannedMachine != null) {
-                        print("######" + state.scannedMachine.name);
-                        setState(() {
-                          this.isScanning = false;
-                        });
-                        Navigator.of(context).pushNamed(
-                          '/certificate-view',
-                          arguments: {'data': state.certificateList[0]},
+                      String codeSanner =
+                          await BarcodeScanner.scan(); //barcode scnner
+                      if (codeSanner != null) {
+                        StoreProvider.of<AppState>(context).dispatch(
+                          ScanMachineAction(codeSanner),
                         );
+                        setState(() {
+                          this.isScanning = true;
+                        });
                       }
+                      // setState(() {
+                      //   this.isScanning = true;
+                      // });
+                      // StoreProvider.of<AppState>(context).dispatch(
+                      //   ScanMachineAction("60d38d2689af3c079c687aa7"),
+                      // );
                     },
                     child: buttonHelper(
                       "Scan",
@@ -106,19 +108,7 @@ class _ScanViewState extends State<ScanView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       //Message displayed over here
-                      Text(
-                        "Result",
-                        style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        qrCodeResult,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+
                       Text(state.scannedMachine == null
                           ? ""
                           : state.scannedMachine.name)
