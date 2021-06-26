@@ -2,52 +2,35 @@ import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 
 AppState updateUserTokenReducer(AppState currentState, dynamic action) {
+  AppState finalState = currentState;
+
   if (action is UpdateIsLogged) {
-    return AppState(
-      certificateList: currentState.certificateList,
-      isLogged: action.updatedIsLogged,
-      loggedUser: action.updatedLoggedUser,
-    );
+    finalState.isLogged = action.updatedIsLogged;
+    finalState.loggedUser = action.updatedLoggedUser;
+
+    return finalState;
   }
 
   if (action is UpdateCertificatesAction) {
-    return AppState(
-      isLogged: currentState.isLogged,
-      loggedUser: currentState.loggedUser,
-      certificateList: action.updatedCertificateList,
-    );
+    finalState.certificateList = action.updatedCertificateList;
+    return finalState;
   }
 
   if (action is UpdateMachineListAction) {
-    return AppState(
-        isLogged: currentState.isLogged,
-        loggedUser: currentState.loggedUser,
-        certificateList: currentState.certificateList,
-        machineList: action.updateMachinesList);
+    finalState.machineList = action.updateMachinesList;
+    return finalState;
   }
 
   // ####### Scanning Maching QR
   if (action is UpdateScannedMachine) {
-    return AppState(
-      isLogged: currentState.isLogged,
-      loggedUser: currentState.loggedUser,
-      certificateList: currentState.certificateList,
-      machineList: currentState.machineList,
-      scannedMachine: action.updatedScannedMachine,
-      activeMachine: currentState.activeMachine,
-    );
+    finalState.scannedMachine = action.updatedScannedMachine;
+    return finalState;
   }
 
   // ####### Active Maching QR
   if (action is UpdateActiveMachine) {
-    return AppState(
-      isLogged: currentState.isLogged,
-      loggedUser: currentState.loggedUser,
-      certificateList: currentState.certificateList,
-      machineList: currentState.machineList,
-      scannedMachine: currentState.scannedMachine,
-      activeMachine: action.updatedActiveMachine,
-    );
+    finalState.activeMachine = action.updatedActiveMachine;
+    return finalState;
   }
   return currentState;
 }

@@ -151,16 +151,6 @@ class _WelcomeViewState extends State<WelcomeView> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
-      onInit: (store) {
-        if (store.state.loggedUser != null) {
-          print("######## State ###########");
-          print("###### isLogged" + store.state.isLogged.toString());
-          print("###### rNumber" + store.state.loggedUser.rNumber.toString());
-          print("###### certificateList length " +
-              store.state.certificateList.length.toString());
-          print("##########################");
-        }
-      },
       builder: (context, state) {
         if (state.loggedUser == null) {
           return Scaffold(
