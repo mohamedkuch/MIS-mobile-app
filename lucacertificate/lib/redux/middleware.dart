@@ -90,6 +90,15 @@ void lucaMiddleware(
       store.dispatch(
         UpdateActiveWorkplace(scannedWorkplace),
       );
+
+      // Post Enter Workplace
+      final resPostEnterWorkplace = await Services.postEnterWorkplace(
+        scannedWorkplace.workplaceNumber,
+        store.state.loggedUser.rNumber,
+        store.state.loggedUser.tokenBase64,
+      );
+      print("##### posting student enters workplace");
+      print(resPostEnterWorkplace);
     }
   }
   if (action is ScanMachineAction) {

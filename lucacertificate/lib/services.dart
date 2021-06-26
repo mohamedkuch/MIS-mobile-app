@@ -104,12 +104,12 @@ class Services {
     }
   }
 
-  static Future postUseMachine(machineID, rNummer, token) async {
+  static Future postUseMachine(machineID, rNumber, token) async {
     try {
       var buildUrl = 'https://nameless-ocean-84519.herokuapp.com/machines/' +
           machineID +
           '/use/' +
-          rNummer +
+          rNumber +
           '?token=' +
           token;
       final res = await http.post(
@@ -143,6 +143,29 @@ class Services {
         final Workplace workplace = workplaceFromJson(res.body);
 
         return {'data': workplace, 'message': "workplace scanned successfully"};
+      }
+      return {'error': res.body};
+    } catch (e) {
+      return {'error': "error sending request"};
+    }
+  }
+
+  static Future postEnterWorkplace(workplaceId, rNumber, token) async {
+    try {
+      var buildUrl = 'https://nameless-ocean-84519.herokuapp.com/workplaces/' +
+          workplaceId +
+          '/enter/' +
+          rNumber +
+          '?token=' +
+          token;
+      final res = await http.post(
+        Uri.parse(buildUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        return {'message': "user posted use of Workplace  successfully"};
       }
       return {'error': res.body};
     } catch (e) {
