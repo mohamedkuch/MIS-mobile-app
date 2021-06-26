@@ -32,5 +32,12 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
     finalState.activeMachine = action.updatedActiveMachine;
     return finalState;
   }
+
+  // ####### Active Workplace from Barcode
+  if (action is UpdateActiveWorkplace) {
+    finalState.activeWorkplace = action.updatedActiveWorkplace;
+    return finalState;
+  }
+
   return currentState;
 }

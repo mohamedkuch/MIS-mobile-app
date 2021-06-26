@@ -2,6 +2,7 @@ import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
+import 'package:lucacertificate/models/workplace.dart';
 import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
 import 'package:lucacertificate/services.dart';
@@ -70,6 +71,27 @@ void lucaMiddleware(
       }
     }
   }
+
+  if (action is ScanWorkplaceAction) {
+    print("##### Scanning Workplace id" + action.scannedWorkplaceId);
+    // Get Scanned Workplace
+    final res = await Services.getScannedWorkplace(
+      action.scannedWorkplaceId,
+      store.state.loggedUser.tokenBase64,
+    );
+
+    print("##### Getting scanned Workplace ");
+    print(res);
+    if (res['error'] != null) {
+      print("######## erroooor");
+      // Error sending request
+    } else {
+      Workplace scannedWorkplace = res['data'];
+      store.dispatch(
+        UpdateActiveWorkplace(scannedWorkplace),
+      );
+    }
+  }
   if (action is ScanMachineAction) {
     print("##### Scanning Machine id" + action.scannedMachineId);
     // Get Scanned Machine
@@ -80,6 +102,7 @@ void lucaMiddleware(
     print(res);
 
     if (res['error'] != null) {
+      print("######## erroooor");
       // Error sending request
     } else {
       Machine scannedMachine = res['data'];
@@ -88,13 +111,12 @@ void lucaMiddleware(
           scannedMachine,
         ),
       );
-
-      // verify if userhas the right to use the machine
-
+      // verify if user has the right to use the machine
       Certificate scannedCert = getCertificateById(
           store.state.certificateList, scannedMachine.certificateKey);
 
       if (scannedCert != null) {
+        // Post Use Machine
         final resPostUseMachine = await Services.postUseMachine(
           scannedMachine.id,
           store.state.loggedUser.rNumber,
@@ -110,5 +132,6 @@ void lucaMiddleware(
       }
     }
   }
+
   next(action);
 }

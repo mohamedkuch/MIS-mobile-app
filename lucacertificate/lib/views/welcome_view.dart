@@ -88,33 +88,64 @@ Widget activeButtonHelper(String title, Icon icn) {
 }
 
 Widget topViewHelper(AppState state, context) {
-  if (state.activeMachine != null) {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 30,
-        right: 30,
-      ),
-      child: GestureDetector(
-        onTap: () {
-          Certificate scannedCert = getCertificateById(
-              state.certificateList, state.activeMachine.certificateKey);
+  if (state.activeMachine != null || state.activeWorkplace != null) {
+    return Column(
+      children: [
+        state.activeWorkplace != null
+            ? Container(
+                padding: EdgeInsets.only(
+                  left: 30,
+                  right: 30,
+                ),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: activeButtonHelper(
+                    "Workplace : " + state.activeWorkplace.name,
+                    Icon(
+                      Icons.circle,
+                      color: Colors.green.shade600,
+                      size: 14,
+                    ),
+                  ),
+                ),
+              )
+            : Container(
+                child: Text("No Active Machines"),
+              ),
+        Padding(padding: EdgeInsets.all(20)),
+        state.activeMachine != null
+            ? Container(
+                padding: EdgeInsets.only(
+                  left: 30,
+                  right: 30,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    Certificate scannedCert = getCertificateById(
+                        state.certificateList,
+                        state.activeMachine.certificateKey);
 
-          if (scannedCert != null) {
-            Navigator.of(context).pushNamed(
-              '/certificate-view',
-              arguments: {'data': scannedCert, 'isScanView': true},
-            );
-          }
-        },
-        child: activeButtonHelper(
-          "Machine : " + state.activeMachine.name,
-          Icon(
-            Icons.circle,
-            color: Colors.green.shade600,
-            size: 14,
-          ),
-        ),
-      ),
+                    if (scannedCert != null) {
+                      Navigator.of(context).pushNamed(
+                        '/certificate-view',
+                        arguments: {'data': scannedCert, 'isScanView': true},
+                      );
+                    }
+                  },
+                  child: activeButtonHelper(
+                    "Machine : " + state.activeMachine.name,
+                    Icon(
+                      Icons.circle,
+                      color: Colors.green.shade600,
+                      size: 14,
+                    ),
+                  ),
+                ),
+              )
+            : Container(
+                child: Text("No Active Machines"),
+              ),
+      ],
     );
   }
   return Column(

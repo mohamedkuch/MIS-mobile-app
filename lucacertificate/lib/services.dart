@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
+import 'package:lucacertificate/models/workplace.dart';
 
 class Services {
   static Future login(rNumber, lastName) async {
@@ -119,6 +120,29 @@ class Services {
       );
       if (res.statusCode == 200 || res.statusCode == 201) {
         return {'message': "user posted use of Machine  successfully"};
+      }
+      return {'error': res.body};
+    } catch (e) {
+      return {'error': "error sending request"};
+    }
+  }
+
+  static Future getScannedWorkplace(id, token) async {
+    try {
+      var buildUrl = "https://nameless-ocean-84519.herokuapp.com/workplaces/" +
+          id +
+          "?token=" +
+          token;
+      final res = await http.get(
+        Uri.parse(buildUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        final Workplace workplace = workplaceFromJson(res.body);
+
+        return {'data': workplace, 'message': "workplace scanned successfully"};
       }
       return {'error': res.body};
     } catch (e) {

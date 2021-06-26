@@ -13,6 +13,8 @@ class AppState {
   Machine scannedMachine;
   Machine activeMachine;
 
+  Workplace activeWorkplace;
+
   AppState({
     this.isLogged,
     this.loggedUser,
@@ -21,5 +23,6 @@ class AppState {
     this.activeMachine,
     this.machineList,
     this.workplaceList,
+    this.activeWorkplace,
   });
 }

@@ -1,6 +1,7 @@
 import 'package:lucacertificate/models/certificate.dart';
 import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
+import 'package:lucacertificate/models/workplace.dart';
 
 class UpdateIsLogged {
   final User updatedLoggedUser;
@@ -11,21 +12,6 @@ class UpdateIsLogged {
 class LoginAction {
   final String rNumber, lastName;
   LoginAction(this.rNumber, this.lastName);
-}
-
-class ScanMachineAction {
-  final String scannedMachineId;
-  ScanMachineAction(this.scannedMachineId);
-}
-
-class UpdateScannedMachine {
-  final Machine updatedScannedMachine;
-  UpdateScannedMachine(this.updatedScannedMachine);
-}
-
-class UpdateActiveMachine {
-  final Machine updatedActiveMachine;
-  UpdateActiveMachine(this.updatedActiveMachine);
 }
 
 class UpdateCertificatesAction {
@@ -42,4 +28,33 @@ class UpdateCertificatesAction {
 class UpdateMachineListAction {
   final List<Machine> updateMachinesList;
   UpdateMachineListAction(this.updateMachinesList);
+}
+
+// ##### Scan QR for Machine
+
+class ScanMachineAction {
+  final String scannedMachineId;
+  ScanMachineAction(this.scannedMachineId);
+}
+
+class UpdateScannedMachine {
+  final Machine updatedScannedMachine;
+  UpdateScannedMachine(this.updatedScannedMachine);
+}
+
+class UpdateActiveMachine {
+  final Machine updatedActiveMachine;
+  UpdateActiveMachine(this.updatedActiveMachine);
+}
+
+// ##### Scan Bar code for workplace
+
+class ScanWorkplaceAction {
+  final String scannedWorkplaceId;
+  ScanWorkplaceAction(this.scannedWorkplaceId);
+}
+
+class UpdateActiveWorkplace {
+  final Workplace updatedActiveWorkplace;
+  UpdateActiveWorkplace(this.updatedActiveWorkplace);
 }
