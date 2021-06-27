@@ -85,10 +85,22 @@ Widget activeButtonHelper(String title, Icon icn) {
           padding: EdgeInsets.only(
             right: 20,
           ),
-          child: Icon(
-            Icons.circle,
-            color: Colors.green.shade600,
-            size: 14,
+          child: Row(
+            children: [
+              Text(
+                "active",
+                style: TextStyle(
+                  color: Colors.green.shade600,
+                  fontSize: 12,
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              Icon(
+                Icons.circle,
+                color: Colors.green.shade600,
+                size: 8,
+              ),
+            ],
           ),
         ),
       ],
