@@ -64,26 +64,33 @@ Widget activeButtonHelper(String title, Icon icn) {
     height: 60,
     child: Row(
       children: [
+        Container(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: icn,
+        ),
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 30,
-            ),
-            child: Text(
-              title,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
+          child: Text(
+            title,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
         Padding(
-            padding: EdgeInsets.only(
-              right: 30,
-            ),
-            child: icn),
+          padding: EdgeInsets.only(
+            right: 20,
+          ),
+          child: Icon(
+            Icons.circle,
+            color: Colors.green.shade600,
+            size: 14,
+          ),
+        ),
       ],
     ),
   );
@@ -107,11 +114,11 @@ Widget topViewHelper(AppState state, context) {
                     );
                   },
                   child: activeButtonHelper(
-                    "Workplace : " + state.activeWorkplace.name,
+                    state.activeWorkplace.name,
                     Icon(
-                      Icons.circle,
-                      color: Colors.green.shade600,
-                      size: 14,
+                      Icons.home_work_rounded,
+                      color: Colors.black,
+                      size: 26,
                     ),
                   ),
                 ),
@@ -140,11 +147,11 @@ Widget topViewHelper(AppState state, context) {
                     }
                   },
                   child: activeButtonHelper(
-                    "Machine : " + state.activeMachine.name,
+                    state.activeMachine.name,
                     Icon(
-                      Icons.circle,
-                      color: Colors.green.shade600,
-                      size: 14,
+                      Icons.build_circle_sharp,
+                      color: Colors.black,
+                      size: 26,
                     ),
                   ),
                 ),
@@ -209,13 +216,9 @@ class _WelcomeViewState extends State<WelcomeView> {
               color: bgColor,
               height: MediaQuery.of(context).size.height * 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.10,
-                      bottom: MediaQuery.of(context).size.height * 0.10,
-                    ),
                     child: topViewHelper(state, context),
                   ),
                   Divider(
@@ -224,78 +227,69 @@ class _WelcomeViewState extends State<WelcomeView> {
                     height: 3,
                     thickness: 2,
                   ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: 30, right: 30, top: 15, bottom: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // on Check certificates pressed
-                                    print("Check certificates pressed");
-                                    Navigator.pushNamed(
-                                        context, '/certifactes');
-                                  },
-                                  child: buttonHelper(
-                                      "Check Certificates",
-                                      true,
-                                      Icon(
-                                        Icons.assignment,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(20)),
-                              Container(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // on Scan pressed
-                                    print("Scan");
-                                    Navigator.pushNamed(context, '/scan');
-                                  },
-                                  child: buttonHelper(
-                                    "Scan",
-                                    true,
-                                    Icon(
-                                      Icons.qr_code,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            child: GestureDetector(
-                              onTap: () {
-                                // on Logout pressed
-                                StoreProvider.of<AppState>(context).dispatch(
-                                  LogoutAction(),
-                                );
-                                Navigator.pushNamed(context, '/login');
-
-                                SharedPreferences.getInstance().then((prefs) {
-                                  prefs.clear();
-                                });
-
-                                print("Logout pressed");
-                              },
-                              child: buttonHelper(
-                                "Logout",
-                                false,
-                                Icon(
-                                  Icons.logout,
-                                  color: Colors.white,
-                                ),
-                              ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 30, right: 30),
+                        child: GestureDetector(
+                          onTap: () {
+                            // on Check certificates pressed
+                            print("Check certificates pressed");
+                            Navigator.pushNamed(context, '/certifactes');
+                          },
+                          child: buttonHelper(
+                              "Check Certificates",
+                              true,
+                              Icon(
+                                Icons.assignment,
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(20)),
+                      Container(
+                        padding: EdgeInsets.only(left: 30, right: 30),
+                        child: GestureDetector(
+                          onTap: () {
+                            // on Scan pressed
+                            print("Scan");
+                            Navigator.pushNamed(context, '/scan');
+                          },
+                          child: buttonHelper(
+                            "Scan",
+                            true,
+                            Icon(
+                              Icons.qr_code,
+                              color: Colors.white,
                             ),
                           ),
-                        ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 30, right: 30),
+                    child: GestureDetector(
+                      onTap: () {
+                        // on Logout pressed
+                        StoreProvider.of<AppState>(context).dispatch(
+                          LogoutAction(),
+                        );
+                        Navigator.pushNamed(context, '/login');
+
+                        SharedPreferences.getInstance().then((prefs) {
+                          prefs.clear();
+                        });
+
+                        print("Logout pressed");
+                      },
+                      child: buttonHelper(
+                        "Logout",
+                        false,
+                        Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

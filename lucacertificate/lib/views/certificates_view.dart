@@ -106,7 +106,7 @@ class _CertifactesViewState extends State<CertifactesView> {
                                 child: Text(
                                   state.certificateList[index].name,
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 margin: EdgeInsets.only(left: 30),
@@ -121,6 +121,7 @@ class _CertifactesViewState extends State<CertifactesView> {
                                   child: Icon(
                                     Icons.check,
                                     color: Colors.white,
+                                    size: 16,
                                   ),
                                 ),
                                 margin: EdgeInsets.only(right: 30),

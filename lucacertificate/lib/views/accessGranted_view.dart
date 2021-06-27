@@ -107,7 +107,7 @@ class AccessGranted extends StatelessWidget {
                           child: Text(
                             selectedCert.name,
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           margin: EdgeInsets.only(left: 30),
                         ),
@@ -121,6 +121,7 @@ class AccessGranted extends StatelessWidget {
                             child: Icon(
                               Icons.check,
                               color: Colors.white,
+                              size: 16,
                             ),
                           ),
                           margin: EdgeInsets.only(right: 30),

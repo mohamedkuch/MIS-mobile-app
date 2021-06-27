@@ -213,24 +213,25 @@ class _LoginViewState extends State<LoginView> {
                         Column(
                           children: [
                             Container(
-                                margin: EdgeInsets.only(
-                                    left: 30, right: 30, bottom: 15),
-                                child: this.loggingIn
-                                    ? CircularProgressIndicator()
-                                    : GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            this.loggingIn = true;
-                                          });
-                                          // on Login pressed
-                                          StoreProvider.of<AppState>(context)
-                                              .dispatch(
-                                            LoginAction("r0013332", "Kechaou"),
-                                            //LoginAction(_rNumber, _lastName),
-                                          );
-                                        },
-                                        child: primaryButtonHelper("Login"),
-                                      )),
+                              margin: EdgeInsets.only(
+                                  left: 30, right: 30, bottom: 15),
+                              child: this.loggingIn
+                                  ? CircularProgressIndicator()
+                                  : GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          this.loggingIn = true;
+                                        });
+                                        // on Login pressed
+                                        StoreProvider.of<AppState>(context)
+                                            .dispatch(
+                                          //LoginAction("r0013332", "Kechaou"),
+                                          LoginAction(_rNumber, _lastName),
+                                        );
+                                      },
+                                      child: primaryButtonHelper("Login"),
+                                    ),
+                            ),
                           ],
                         ),
                         Padding(padding: EdgeInsets.all(5)),
