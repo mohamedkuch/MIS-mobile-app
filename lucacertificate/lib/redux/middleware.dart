@@ -25,6 +25,7 @@ void lucaMiddleware(
     // check if user logged in successfully
     if (res['error'] != null) {
       // Error sending request
+      store.dispatch(UpdateErrorLoginAction("Invalid credentials"));
     } else {
       User userLogged = res['data'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -32,7 +33,7 @@ void lucaMiddleware(
       await prefs.setString("rNumber", userLogged.rNumber);
       await prefs.setString("lastName", userLogged.lastName);
       await prefs.setBool("isLogged", true);
-
+      store.dispatch(UpdateErrorLoginAction(""));
       store.dispatch(UpdateIsLogged(true, userLogged));
     }
   } else if (action is UpdateIsLogged) {

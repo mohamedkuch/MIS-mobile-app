@@ -34,6 +34,7 @@ class _LoginViewState extends State<LoginView> {
   String _rNumber = "";
   String _lastName = "";
   bool loggingIn = false;
+  String errorLogin = "";
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _LoginViewState extends State<LoginView> {
     setState(() {
       _rNumber = "";
       _lastName = "";
+      errorLogin = '';
     });
   }
 
@@ -54,6 +56,7 @@ class _LoginViewState extends State<LoginView> {
       child: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onWillChange: (prevState, state) {
+          print("### state changed");
           if (state.loggedUser != null && loggingIn == true) {
             setState(() {
               this.loggingIn = false;
@@ -62,6 +65,21 @@ class _LoginViewState extends State<LoginView> {
               '/welcome',
             );
           }
+          print(state.loginError);
+          if (state.loginError != null) {
+            if (state.loginError != "") {
+              setState(() {
+                this.loggingIn = false;
+                this.errorLogin = state.loginError;
+              });
+            }
+          }
+          // if (state.loggedUser == null && loggingIn == true) {
+          //   setState(() {
+          //     this.loggingIn = false;
+          //     this.errorLogin = "Invalid credentials";
+          //   });
+          // }
         },
         builder: (context, state) {
           return Scaffold(
@@ -209,25 +227,61 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(10)),
+                        this.errorLogin.length > 0
+                            ? Text(
+                                this.errorLogin,
+                                style: TextStyle(color: Colors.red),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.all(10),
+                              ),
                         Column(
                           children: [
                             Container(
                               margin: EdgeInsets.only(
                                   left: 30, right: 30, bottom: 15),
                               child: this.loggingIn
-                                  ? CircularProgressIndicator()
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(70),
+                                      ),
+                                      height: 60,
+                                      child: Center(
+                                        child: Container(
+                                          child: CircularProgressIndicator(
+                                            backgroundColor: Colors.white,
+                                          ),
+                                          height: 20,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    )
                                   : GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          this.loggingIn = true;
+                                          this.errorLogin = '';
                                         });
-                                        // on Login pressed
-                                        StoreProvider.of<AppState>(context)
-                                            .dispatch(
-                                          //LoginAction("r0013332", "Kechaou"),
-                                          LoginAction(_rNumber, _lastName),
-                                        );
+                                        if (this._lastName == '' ||
+                                            this._rNumber == '') {
+                                          setState(() {
+                                            this.errorLogin =
+                                                'rNumber and Last name must not be Empty';
+                                          });
+                                        }
+                                        print(
+                                            '#### login : ' + this.errorLogin);
+                                        if (this.errorLogin.length == 0) {
+                                          setState(() {
+                                            this.loggingIn = true;
+                                          });
+                                          // on Login pressed
+                                          StoreProvider.of<AppState>(context)
+                                              .dispatch(
+                                            //LoginAction("r0013332", "Kechaou"),
+                                            LoginAction(_rNumber, _lastName),
+                                          );
+                                        }
                                       },
                                       child: primaryButtonHelper("Login"),
                                     ),

@@ -3,6 +3,8 @@ import 'package:lucacertificate/models/machine.dart';
 import 'package:lucacertificate/models/user.dart';
 import 'package:lucacertificate/models/workplace.dart';
 
+// ##### Authentication
+
 class UpdateIsLogged {
   final User updatedLoggedUser;
   final bool updatedIsLogged;
@@ -23,6 +25,15 @@ class UpdateCertificatesAction {
     this.updatedLoggedUser,
     this.updatedCertificateList,
   );
+}
+
+class LogoutAction {
+  LogoutAction();
+}
+
+class UpdateErrorLoginAction {
+  final String updatedErrorString;
+  UpdateErrorLoginAction(this.updatedErrorString);
 }
 
 // ##### Scan QR for Machine
@@ -57,10 +68,4 @@ class UpdateActiveWorkplace {
 class UpdateWorkplaceMachineAction {
   final List<Machine> updatedWorkplaceMachineList;
   UpdateWorkplaceMachineAction(this.updatedWorkplaceMachineList);
-}
-
-// ##### Logout
-
-class LogoutAction {
-  LogoutAction();
 }

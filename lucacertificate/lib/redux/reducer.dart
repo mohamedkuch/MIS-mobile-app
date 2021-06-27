@@ -3,7 +3,7 @@ import 'package:lucacertificate/redux/app_state.dart';
 
 AppState updateUserTokenReducer(AppState currentState, dynamic action) {
   AppState finalState = currentState;
-
+  // ######## Authentication
   if (action is UpdateIsLogged) {
     finalState.isLogged = action.updatedIsLogged;
     finalState.loggedUser = action.updatedLoggedUser;
@@ -13,6 +13,15 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
 
   if (action is UpdateCertificatesAction) {
     finalState.certificateList = action.updatedCertificateList;
+    return finalState;
+  }
+
+  if (action is LogoutAction) {
+    return AppState();
+  }
+
+  if (action is UpdateErrorLoginAction) {
+    finalState.loginError = action.updatedErrorString;
     return finalState;
   }
 
@@ -38,10 +47,6 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
   if (action is UpdateWorkplaceMachineAction) {
     finalState.workplaceMachineList = action.updatedWorkplaceMachineList;
     return finalState;
-  }
-
-  if (action is LogoutAction) {
-    return AppState();
   }
 
   return currentState;

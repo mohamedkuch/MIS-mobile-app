@@ -23,7 +23,6 @@ class WorkplaceView extends StatelessWidget {
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
       builder: (context, state) {
-        if (state.isLogged == null) return CircularProgressIndicator();
         return Scaffold(
           appBar: appBar(state.loggedUser.rNumber),
           body: Container(
