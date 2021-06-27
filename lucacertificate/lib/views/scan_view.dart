@@ -98,65 +98,65 @@ class _ScanViewState extends State<ScanView> {
                   margin: EdgeInsets.only(left: 60, right: 60),
                   child: GestureDetector(
                     onTap: () async {
-                      setState(() {
-                        this.isScanningQR = true;
-                        // bar code
-                        this.qrScanned = "wkp-1";
-                        // qr code
-                        // Machine M-1 has right
-                        // this.qrScanned = "qr-60d38d2689af3c079c687aa7";
-                        // Machine M-2 has no right
-                        // this.qrScanned = "qr-60d61a711d48fb3a5753ad38";
-                      });
-
-                      if (this.qrScanned.startsWith("qr-")) {
-                        var machineId = this.qrScanned.substring(3);
-
-                        StoreProvider.of<AppState>(context).dispatch(
-                          ScanMachineAction(machineId),
-                        );
-                      } else if (this.qrScanned.startsWith("wkp-")) {
-                        var workplaceId = this.qrScanned;
-
-                        StoreProvider.of<AppState>(context).dispatch(
-                          ScanWorkplaceAction(workplaceId),
-                        );
-                      } else {
-                        setState(() {
-                          this.isScanningQR = false;
-                        });
-                      }
-
-                      // String codeSanner =
-                      //     await BarcodeScanner.scan(); //barcode scnner
-                      // this.setState(() {
-                      //   this.qrScanned = codeSanner;
+                      // setState(() {
+                      //   this.isScanningQR = true;
+                      //   // bar code
+                      //   this.qrScanned = "wkp-1";
+                      //   // qr code
+                      //   // Machine M-1 has right
+                      //   this.qrScanned = "qr-60d38d2689af3c079c687aa7";
+                      //   // Machine M-2 has no right
+                      //   // this.qrScanned = "qr-60d61a711d48fb3a5753ad38";
                       // });
 
-                      // // QR Code
                       // if (this.qrScanned.startsWith("qr-")) {
                       //   var machineId = this.qrScanned.substring(3);
 
                       //   StoreProvider.of<AppState>(context).dispatch(
                       //     ScanMachineAction(machineId),
                       //   );
-                      //   setState(() {
-                      //     this.isScanningQR = true;
-                      //   });
                       // } else if (this.qrScanned.startsWith("wkp-")) {
                       //   var workplaceId = this.qrScanned;
 
                       //   StoreProvider.of<AppState>(context).dispatch(
                       //     ScanWorkplaceAction(workplaceId),
                       //   );
-                      //   setState(() {
-                      //     this.isScanningQR = true;
-                      //   });
                       // } else {
                       //   setState(() {
                       //     this.isScanningQR = false;
                       //   });
                       // }
+
+                      String codeSanner =
+                          await BarcodeScanner.scan(); //barcode scnner
+                      this.setState(() {
+                        this.qrScanned = codeSanner;
+                      });
+
+                      // QR Code
+                      if (this.qrScanned.startsWith("qr-")) {
+                        var machineId = this.qrScanned.substring(3);
+
+                        StoreProvider.of<AppState>(context).dispatch(
+                          ScanMachineAction(machineId),
+                        );
+                        setState(() {
+                          this.isScanningQR = true;
+                        });
+                      } else if (this.qrScanned.startsWith("wkp-")) {
+                        var workplaceId = this.qrScanned;
+
+                        StoreProvider.of<AppState>(context).dispatch(
+                          ScanWorkplaceAction(workplaceId),
+                        );
+                        setState(() {
+                          this.isScanningQR = true;
+                        });
+                      } else {
+                        setState(() {
+                          this.isScanningQR = false;
+                        });
+                      }
                     },
                     child: buttonHelper(
                       "Scan",

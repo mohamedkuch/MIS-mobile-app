@@ -54,21 +54,6 @@ void lucaMiddleware(
           certificateList,
         ));
       }
-
-      // Get Machines
-      final resMachines =
-          await Services.getMachines(action.updatedLoggedUser.tokenBase64);
-      print("#### Getting Machines List ");
-      print(resMachines);
-
-      if (resMachines['error'] != null) {
-        // Error sending request
-      } else {
-        List<Machine> machineList = resMachines['data'];
-        store.dispatch(
-          UpdateMachineListAction(machineList),
-        );
-      }
     }
   }
 
@@ -87,6 +72,21 @@ void lucaMiddleware(
       // Error sending request
     } else {
       Workplace scannedWorkplace = res['data'];
+
+      final resMachineList = await Services.getWorkplaceMachines(
+        scannedWorkplace.workplaceNumber,
+        store.state.loggedUser.tokenBase64,
+      );
+
+      if (resMachineList['error'] != null) {
+        // Error sending request
+      } else {
+        List<Machine> machineList = resMachineList['data'];
+        store.dispatch(
+          UpdateWorkplaceMachineAction(machineList),
+        );
+      }
+
       store.dispatch(
         UpdateActiveWorkplace(scannedWorkplace),
       );

@@ -25,11 +25,6 @@ class UpdateCertificatesAction {
   );
 }
 
-class UpdateMachineListAction {
-  final List<Machine> updateMachinesList;
-  UpdateMachineListAction(this.updateMachinesList);
-}
-
 // ##### Scan QR for Machine
 
 class ScanMachineAction {
@@ -58,6 +53,13 @@ class UpdateActiveWorkplace {
   final Workplace updatedActiveWorkplace;
   UpdateActiveWorkplace(this.updatedActiveWorkplace);
 }
+
+class UpdateWorkplaceMachineAction {
+  final List<Machine> updatedWorkplaceMachineList;
+  UpdateWorkplaceMachineAction(this.updatedWorkplaceMachineList);
+}
+
+// ##### Logout
 
 class LogoutAction {
   LogoutAction();

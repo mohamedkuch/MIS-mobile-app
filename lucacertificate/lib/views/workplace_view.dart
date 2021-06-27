@@ -75,7 +75,7 @@ class WorkplaceView extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: selectedWorkplace.machines.length,
+                  itemCount: state.workplaceMachineList.length,
                   itemBuilder: (ctx, int index) {
                     return Container(
                       height: 80,
@@ -90,7 +90,7 @@ class WorkplaceView extends StatelessWidget {
                           children: [
                             Container(
                               child: Text(
-                                'ss',
+                                state.workplaceMachineList[index].name,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),

@@ -50,14 +50,6 @@ class _CertifactesViewState extends State<CertifactesView> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
-      onInit: (store) {
-        print("######## State page Certificates ###########");
-        print("###### isLogged" + store.state.isLogged.toString());
-        print("###### rNumber" + store.state.loggedUser.rNumber.toString());
-        print("###### certificateList length " +
-            store.state.certificateList.length.toString());
-        print("##########################");
-      },
       builder: (context, state) {
         return Scaffold(
           appBar: appBar(state.loggedUser.rNumber),

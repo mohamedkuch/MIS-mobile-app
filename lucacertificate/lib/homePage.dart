@@ -34,8 +34,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    print("##### Home Page View");
-
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
@@ -55,8 +53,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("##### Home Page View");
-
     return Scaffold(
       body: Container(
         color: primaryColorBlue,

@@ -16,11 +16,6 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
     return finalState;
   }
 
-  if (action is UpdateMachineListAction) {
-    finalState.machineList = action.updateMachinesList;
-    return finalState;
-  }
-
   // ####### Scanning Maching QR
   if (action is UpdateScannedMachine) {
     finalState.scannedMachine = action.updatedScannedMachine;
@@ -36,6 +31,12 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
   // ####### Active Workplace from Barcode
   if (action is UpdateActiveWorkplace) {
     finalState.activeWorkplace = action.updatedActiveWorkplace;
+    return finalState;
+  }
+
+  // ###### Get Workplace Machines List
+  if (action is UpdateWorkplaceMachineAction) {
+    finalState.workplaceMachineList = action.updatedWorkplaceMachineList;
     return finalState;
   }
 

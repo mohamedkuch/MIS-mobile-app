@@ -79,31 +79,6 @@ class Services {
     }
   }
 
-  static Future getMachines(token) async {
-    try {
-      var buildUrl = "https://nameless-ocean-84519.herokuapp.com/machines/" +
-          "?token=" +
-          token;
-      final res = await http.get(
-        Uri.parse(buildUrl),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        final List<Machine> machineList = machineListFromJson(res.body);
-
-        return {
-          'data': machineList,
-          'message': "machine list fetched successfully"
-        };
-      }
-      return {'error': res.body};
-    } catch (e) {
-      return {'error': "error sending request"};
-    }
-  }
-
   static Future postUseMachine(machineID, rNumber, token) async {
     try {
       var buildUrl = 'https://nameless-ocean-84519.herokuapp.com/machines/' +
@@ -170,6 +145,32 @@ class Services {
       return {'error': res.body};
     } catch (e) {
       return {'error': "error sending request"};
+    }
+  }
+
+  static Future getWorkplaceMachines(workplaceId, token) async {
+    try {
+      var buildUrl = "https://nameless-ocean-84519.herokuapp.com/workplaces/" +
+          workplaceId +
+          "/machines?token=" +
+          token;
+      final res = await http.get(
+        Uri.parse(buildUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        final List<Machine> machineList = machineListFromJson(res.body);
+
+        return {
+          'data': machineList,
+          'message': "Machine list fetched successfully"
+        };
+      }
+      return {'error': res.body};
+    } catch (e) {
+      return {'error': e.toString()};
     }
   }
 }

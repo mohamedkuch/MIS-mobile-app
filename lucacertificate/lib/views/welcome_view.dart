@@ -187,7 +187,6 @@ Widget topViewHelper(AppState state, context) {
 class _WelcomeViewState extends State<WelcomeView> {
   @override
   Widget build(BuildContext context) {
-    print("##### Welcome View");
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
       builder: (context, state) {

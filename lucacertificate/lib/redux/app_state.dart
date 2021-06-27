@@ -6,14 +6,14 @@ import 'package:lucacertificate/models/workplace.dart';
 class AppState {
   bool isLogged;
   User loggedUser;
+
   List<Certificate> certificateList = [];
-  List<Machine> machineList = [];
-  List<Workplace> workplaceList = [];
 
   Machine scannedMachine;
   Machine activeMachine;
 
   Workplace activeWorkplace;
+  List<Machine> workplaceMachineList = [];
 
   AppState({
     this.isLogged,
@@ -21,8 +21,7 @@ class AppState {
     this.certificateList,
     this.scannedMachine,
     this.activeMachine,
-    this.machineList,
-    this.workplaceList,
     this.activeWorkplace,
+    this.workplaceMachineList,
   });
 }

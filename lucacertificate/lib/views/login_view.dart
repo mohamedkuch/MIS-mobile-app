@@ -136,13 +136,11 @@ class _LoginViewState extends State<LoginView> {
                             onSubmitted: (text) {
                               setState(() {
                                 _rNumber = text;
-                                print("### _rNumber : " + text);
                               });
                             },
                             onChanged: (text) {
                               setState(() {
                                 _rNumber = text;
-                                print("### _rNumber : " + text);
                               });
                             },
                             decoration: InputDecoration(
@@ -180,13 +178,11 @@ class _LoginViewState extends State<LoginView> {
                             onSubmitted: (text) {
                               setState(() {
                                 _lastName = text;
-                                print("### lastName : " + text);
                               });
                             },
                             onChanged: (text) {
                               setState(() {
                                 _lastName = text;
-                                print("### lastName : " + text);
                               });
                             },
                             decoration: InputDecoration(
