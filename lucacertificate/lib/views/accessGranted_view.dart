@@ -52,7 +52,7 @@ class AccessGranted extends StatelessWidget {
                     bottom: 20,
                   ),
                   child: Text(
-                    "You have  aquired this certificate after successfully completed the training.",
+                    "You have aquired this certificate after successfully completed the training.",
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),

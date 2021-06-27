@@ -12,6 +12,7 @@ import 'package:lucacertificate/views/scan_view.dart';
 import 'package:lucacertificate/views/welcome_view.dart';
 
 import 'package:lucacertificate/redux/app_state.dart';
+import 'package:lucacertificate/views/workplace_view.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           '/certifactes': (context) => CertifactesView(),
           '/certificate-view': (context) => AccessGranted(),
           '/certificate-denied': (context) => AccessDeniedView(),
+          '/workplace-view': (context) => WorkplaceView(),
         },
         initialRoute: '/',
       ),

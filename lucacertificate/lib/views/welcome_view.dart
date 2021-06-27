@@ -100,7 +100,12 @@ Widget topViewHelper(AppState state, context) {
                   right: 30,
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      '/workplace-view',
+                      arguments: {'data': state.activeWorkplace},
+                    );
+                  },
                   child: activeButtonHelper(
                     "Workplace : " + state.activeWorkplace.name,
                     Icon(
@@ -112,7 +117,7 @@ Widget topViewHelper(AppState state, context) {
                 ),
               )
             : Container(
-                child: Text("No Active Machines"),
+                child: Text("No Active Workplace"),
               ),
         Padding(padding: EdgeInsets.all(20)),
         state.activeMachine != null
