@@ -34,13 +34,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    print("##### Home Page View");
+
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
         this.isLogged = prefs.getBool("isLogged");
       });
       if (this.isLogged == true) {
-        Navigator.pushNamed(context, '/welcome');
+        Navigator.of(context).pushNamed(
+          '/welcome',
+        );
 
         StoreProvider.of<AppState>(context).dispatch(
           LoginAction(prefs.getString("rNumber"), prefs.getString("lastName")),
@@ -51,6 +55,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("##### Home Page View");
+
     return Scaffold(
       body: Container(
         color: primaryColorBlue,

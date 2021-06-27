@@ -33,6 +33,7 @@ Widget primaryButtonHelper(String title) {
 class _LoginViewState extends State<LoginView> {
   String _rNumber = "";
   String _lastName = "";
+  bool loggingIn = false;
 
   @override
   void initState() {
@@ -53,10 +54,14 @@ class _LoginViewState extends State<LoginView> {
       child: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onWillChange: (prevState, state) {
-          if (state.isLogged) {
-            Navigator.pushNamed(context, '/welcome');
+          if (state.loggedUser != null && loggingIn == true) {
+            setState(() {
+              this.loggingIn = false;
+            });
+            Navigator.of(context).pushNamed(
+              '/welcome',
+            );
           }
-          return null;
         },
         builder: (context, state) {
           return Scaffold(
@@ -214,31 +219,22 @@ class _LoginViewState extends State<LoginView> {
                             Container(
                                 margin: EdgeInsets.only(
                                     left: 30, right: 30, bottom: 15),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // on Login pressed
-                                    StoreProvider.of<AppState>(context)
-                                        .dispatch(
-                                      LoginAction("r0013332", "Kechaou"),
-                                      //LoginAction(_rNumber, _lastName),
-                                    );
-                                  },
-                                  child: primaryButtonHelper("Login"),
-                                )),
-                            // Center(
-                            //   child: Text("don't have an account ? "),
-                            // ),
-                            // Container(
-                            //   margin: EdgeInsets.only(
-                            //       left: 30, right: 30, top: 15, bottom: 10),
-                            //   child: GestureDetector(
-                            //     onTap: () {
-                            //       // on Sign up pressed
-                            //       print("Sign up pressed");
-                            //     },
-                            //     child: primaryButtonHelper("Sign up"),
-                            //   ),
-                            // ),
+                                child: this.loggingIn
+                                    ? CircularProgressIndicator()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            this.loggingIn = true;
+                                          });
+                                          // on Login pressed
+                                          StoreProvider.of<AppState>(context)
+                                              .dispatch(
+                                            LoginAction("r0013332", "Kechaou"),
+                                            //LoginAction(_rNumber, _lastName),
+                                          );
+                                        },
+                                        child: primaryButtonHelper("Login"),
+                                      )),
                           ],
                         ),
                         Padding(padding: EdgeInsets.all(5)),

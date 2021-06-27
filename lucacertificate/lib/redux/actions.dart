@@ -58,3 +58,7 @@ class UpdateActiveWorkplace {
   final Workplace updatedActiveWorkplace;
   UpdateActiveWorkplace(this.updatedActiveWorkplace);
 }
+
+class LogoutAction {
+  LogoutAction();
+}

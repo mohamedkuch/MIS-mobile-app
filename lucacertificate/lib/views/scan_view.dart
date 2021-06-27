@@ -37,7 +37,11 @@ class _ScanViewState extends State<ScanView> {
                 arguments: {'data': state.scannedMachine},
               );
             }
-          } else if (this.qrScanned.startsWith("wkp-")) {}
+          } else if (this.qrScanned.startsWith("wkp-")) {
+            Navigator.of(context).pushNamed(
+              '/certifactes',
+            );
+          }
 
           // If workplace scanned
 
@@ -50,6 +54,8 @@ class _ScanViewState extends State<ScanView> {
         return null;
       },
       builder: (context, state) {
+        if (state.isLogged == null) return CircularProgressIndicator();
+
         return Scaffold(
           appBar: appBar(state.loggedUser.rNumber),
           body: Container(
@@ -97,7 +103,7 @@ class _ScanViewState extends State<ScanView> {
                         this.qrScanned = "wkp-1";
                         // qr code
                         // Machine M-1 has right
-                        // this.qrScanned = "qr-60d38d2689af3c079c687aa7";
+                        this.qrScanned = "qr-60d38d2689af3c079c687aa7";
                         // Machine M-2 has no right
                         // this.qrScanned = "qr-60d61a711d48fb3a5753ad38";
                       });

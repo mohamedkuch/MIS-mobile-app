@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:lucacertificate/globals.dart';
 import 'package:lucacertificate/models/certificate.dart';
+import 'package:lucacertificate/redux/actions.dart';
 import 'package:lucacertificate/redux/app_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WelcomeView extends StatefulWidget {
   WelcomeView({Key key}) : super(key: key);
@@ -180,6 +182,7 @@ Widget topViewHelper(AppState state, context) {
 class _WelcomeViewState extends State<WelcomeView> {
   @override
   Widget build(BuildContext context) {
+    print("##### Welcome View");
     return StoreConnector<AppState, AppState>(
       converter: (store) => store.state,
       builder: (context, state) {
@@ -267,6 +270,15 @@ class _WelcomeViewState extends State<WelcomeView> {
                             child: GestureDetector(
                               onTap: () {
                                 // on Logout pressed
+                                StoreProvider.of<AppState>(context).dispatch(
+                                  LogoutAction(),
+                                );
+                                Navigator.pushNamed(context, '/login');
+
+                                SharedPreferences.getInstance().then((prefs) {
+                                  prefs.clear();
+                                });
+
                                 print("Logout pressed");
                               },
                               child: buttonHelper(

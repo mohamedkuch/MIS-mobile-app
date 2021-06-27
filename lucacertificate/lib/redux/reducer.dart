@@ -39,5 +39,9 @@ AppState updateUserTokenReducer(AppState currentState, dynamic action) {
     return finalState;
   }
 
+  if (action is LogoutAction) {
+    return AppState();
+  }
+
   return currentState;
 }
